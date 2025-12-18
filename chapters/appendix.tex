@@ -1,0 +1,670 @@
+
+% The environment used here (theappendices) is a wrapper for the basic appendices environment which changes the appearance of the title page and the structure and appearance of the appendices in the table of contents and PDF bookmarks. The original functionality can be restored by simply removing the 'the' from the \begin{} and \end{} statements below.
+
+\begin{theappendices}
+
+\chapter{Relevant Source Code}
+\begin{multicols}{2}
+	
+	\begin{lstlisting}[
+		caption={Flask-Based Real-Time Helmet Violation Detection System Using YOLO},
+		label={lst:app_py}
+		]
+		from ultralytics import YOLO
+		import cv2
+		from datetime import datetime
+		import os
+		import time
+		import platform
+		from collections import deque
+		from flask import Flask, render_template, Response, send_from_directory, jsonify, request, abort
+		import threading
+		
+		app = Flask(__name__)
+		
+		# === Load YOLO model ===
+		model = YOLO("best.pt")
+		
+		# === Setup folders ===
+		VIOLATION_FOLDER = os.path.join(os.getcwd(), "violations")
+		os.makedirs(VIOLATION_FOLDER, exist_ok=True)
+		
+		# === Classes ===
+		HELMET_CLASSES = [
+		"person with proper helmet",
+		"person with helmet",
+		"person with wrong helmet use",
+		"person with no helmet"
+		]
+		
+		# Updated violation classes
+		VIOLATION_CLASSES = [
+		"person with helmet",
+		"person with wrong helmet use",
+		"person with no helmet"
+		]
+		
+		# Vehicle classes that should be ignored
+		IGNORED_VEHICLES = [
+		"not motorcycle",
+		"bicycle",
+		"bike"
+		]
+		
+		# === State and constants ===
+		recording = False
+		record_start_time = None
+		recorded_frames = []
+		recorded_violations = set()
+		max_duration = 7
+		last_violations = set()
+		violation_logs = []
+		
+		# Variables to prevent duplicate logs/videos for the same continuous violation event
+		last_logged_violation = None
+		violation_active = False
+		last_detected_riders = {}  # Track the last detected positions of riders
+		violation_cooldown = {}  # Track cooldown period for each rider
+		COOLDOWN_PERIOD = 10  # Cooldown period in seconds
+		violation_cooldown = {}  # Track cooldown for each rider
+		COOLDOWN_PERIOD = 10  # Cooldown period in seconds
+		last_detected_riders = {}  # Track last detected positions of riders
+		
+		camera_index = 0
+		
+		MIN_FPS = 5
+		MAX_FPS = 60
+		DEFAULT_FPS = 15
+		
+		# === Buffers ===
+		PRE_SECONDS = 1.5
+		POST_SECONDS = 1.5
+		
+		cap = cv2.VideoCapture(camera_index)
+		latest_frame = None
+		lock = threading.Lock()
+		
+		real_fps = cap.get(cv2.CAP_PROP_FPS) if cap.isOpened() and cap.get(cv2.CAP_PROP_FPS) and cap.get(cv2.CAP_PROP_FPS) > 0 else DEFAULT_FPS
+		pre_violation_buffer = deque(maxlen=max(1, int(PRE_SECONDS * real_fps)))
+		post_violation_buffer = deque(maxlen=max(1, int(POST_SECONDS * real_fps)))
+		
+		# === Helmet stability ===
+		helmet_status_memory = {}
+		HELMET_STABILITY_FRAMES = 5  # Number of consistent frames required before changing helmet label
+		
+		
+		def camera_thread():
+		global cap, latest_frame
+		while True:
+		if not cap.isOpened():
+		try:
+		cap.release()
+		except Exception:
+		pass
+		cap = cv2.VideoCapture(camera_index)
+		time.sleep(1)
+		continue
+		
+		ret, frame = cap.read()
+		if not ret:
+		try:
+		cap.release()
+		except Exception:
+		pass
+		cap = cv2.VideoCapture(camera_index)
+		time.sleep(1)
+		continue
+		
+		with lock:
+		latest_frame = frame
+		
+		
+		threading.Thread(target=camera_thread, daemon=True).start()
+		
+		
+		def log_violation(current_violations):
+		global violation_logs
+		if not current_violations:
+		return
+		label = " | ".join(sorted(current_violations))
+		timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+		log_entry = f"[{timestamp}] {label}"
+		if len(violation_logs) == 0 or violation_logs[0] != log_entry:
+		violation_logs.insert(0, log_entry)
+		violation_logs = violation_logs[:50]
+		
+		
+		def play_beep():
+		system = platform.system()
+		try:
+		if system == "Windows":
+		import winsound
+		winsound.Beep(1000, 300)
+		elif system == "Darwin":
+		os.system('say "Violation detected"')
+		else:
+		print('\a')
+		except Exception as e:
+		print(f"[Sound Error] {e}")
+		
+		
+		def _open_video_writer(filepath, fps, size):
+		codecs_to_try = ["avc1", "mp4v", "H264", "XVID"]
+		for codec in codecs_to_try:
+		fourcc = cv2.VideoWriter_fourcc(*codec)
+		out = cv2.VideoWriter(filepath, fourcc, fps, size)
+		if out.isOpened():
+		print(f"[VideoWriter] Using codec {codec}")
+		return out
+		return None
+		
+		
+		def save_violation_video(frames, violations, fps=None):
+		if not frames:
+		return None
+		
+		timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+		violation_label = "_".join(sorted(violations)).upper() if violations else "UNKNOWN"
+		filename = f"{timestamp}_{violation_label}.mp4"
+		filepath = os.path.join(VIOLATION_FOLDER, filename)
+		fps_to_use = 30
+		
+		h, w = frames[0].shape[:2]
+		size = (w, h)
+		
+		out = _open_video_writer(filepath, fps_to_use, size)
+		if not out:
+		print("[ERROR] Could not open VideoWriter.")
+		return None
+		
+		for f in frames:
+		if (f.shape[1], f.shape[0]) != size:
+		f = cv2.resize(f, size)
+		out.write(f.astype("uint8"))
+		
+		out.release()
+		print(f"[SAVED] {filename} (fps={fps_to_use}, frames={len(frames)})")
+		return filename
+		
+		
+		def get_rider_id(person_box, motorcycle_box):
+		px1, py1, px2, py2 = person_box
+		mx1, my1, mx2, my2 = motorcycle_box
+		pcx, pcy = (px1 + px2) / 2, (py1 + py2) / 2
+		mcx, mcy = (mx1 + mx2) / 2, (my1 + my2) / 2
+		# Create a unique identifier based on relative position
+		return f"{int(pcx-mcx)}_{int(pcy-mcy)}"
+		
+		def is_rider(person_box, motorcycle_box, tolerance=40):
+		px1, py1, px2, py2 = person_box
+		mx1, my1, mx2, my2 = motorcycle_box
+		pcx, pcy = (px1 + px2) / 2, (py1 + py2) / 2
+		mx1_t, my1_t = mx1 - tolerance, my1 - tolerance
+		mx2_t, my2_t = mx2 + tolerance, my2 + tolerance
+		return mx1_t <= pcx <= mx2_t and my1_t <= pcy <= my2_t
+		
+		
+		def generate_frames():
+		global recording, recorded_frames, recorded_violations, last_violations, latest_frame, pre_violation_buffer, post_violation_buffer
+		global last_logged_violation, violation_active, last_detected_riders, violation_cooldown
+		violation_buffer = deque(maxlen=3)
+		
+		while True:
+		if latest_frame is None:
+		time.sleep(0.05)
+		continue
+		
+		with lock:
+		frame = latest_frame.copy()
+		
+		try:
+		results = model.predict(source=frame, conf=0.5, iou=0.45, verbose=False)
+		except Exception as e:
+		print(f"[PREDICT ERROR] {e}")
+		ret, buffer = cv2.imencode('.jpg', frame)
+		if not ret:
+		continue
+		yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+		continue
+		
+		motorcycles, persons, valid_boxes = [], [], []
+		boxes = getattr(results[0], "boxes", []) if results and results[0] else []
+		
+		for box in boxes:
+		try:
+		xy0 = box.xyxy[0]
+		xy = xy0.cpu().numpy() if hasattr(xy0, "cpu") else xy0
+		x1, y1, x2, y2 = map(int, xy)
+		except Exception:
+		continue
+		
+		if x2 - x1 <= 40 or y2 - y1 <= 40:
+		continue
+		
+		try:
+		cls_val = box.cls[0] if hasattr(box.cls, "__len__") else box.cls
+		cls_id = int(cls_val)
+		except Exception:
+		cls_id = int(getattr(box, "label", -1))
+		
+		cls_name = model.names[cls_id] if hasattr(model, "names") and cls_id in model.names else str(cls_id)
+		
+		# === Classification filter ===
+		if cls_name == "motorcycle":
+		motorcycles.append((x1, y1, x2, y2))
+		valid_boxes.append((x1, y1, x2, y2, cls_name))
+		elif cls_name.lower() in [v.lower() for v in IGNORED_VEHICLES]:
+		continue  # Skip bicycles and other non-motorcycle vehicles
+		elif cls_name in HELMET_CLASSES:
+		persons.append((x1, y1, x2, y2, cls_name))
+		
+		# --- Improved Helmet Status Memory Tracking ---
+		person_center = ((x1 + x2) // 2, (y1 + y2) // 2)
+		person_id = f"{person_center[0]}_{person_center[1]}"
+		prev = helmet_status_memory.get(person_id, {"label": cls_name, "streak": 0})
+		
+		if cls_name == prev["label"]:
+		prev["streak"] = 0  # same class, reset streak
+		else:
+		prev["streak"] += 1
+		if prev["streak"] >= HELMET_STABILITY_FRAMES:
+		prev["label"] = cls_name
+		prev["streak"] = 0
+		
+		helmet_status_memory[person_id] = prev
+		stable_label = prev["label"]
+		
+		persons[-1] = (x1, y1, x2, y2, stable_label)
+		
+		# Only keep motorcycles that actually have a rider
+		motorcycles = [m for m in motorcycles if any(is_rider(p[:4], m) for p in persons)]
+		
+		# Validate persons within motorcycles
+		if motorcycles and persons:
+		for px1, py1, px2, py2, cls_name in persons:
+		for mx1, my1, mx2, my2 in motorcycles:
+		if is_rider((px1, py1, px2, py2), (mx1, my1, mx2, my2)):
+		valid_boxes.append((px1, py1, px2, py2, cls_name))
+		break
+		
+		# === Violation Detection with Rider Tracking ===
+		current_violations = set()
+		current_time = time.time()
+		detected_riders = {}
+		
+		if motorcycles:
+		for px1, py1, px2, py2, cls_name in persons:
+		for mx1, my1, mx2, my2 in motorcycles:
+		if is_rider((px1, py1, px2, py2), (mx1, my1, mx2, my2)):
+		rider_id = get_rider_id((px1, py1, px2, py2), (mx1, my1, mx2, my2))
+		
+		# Check if this rider is in cooldown
+		if rider_id in violation_cooldown:
+		if current_time - violation_cooldown[rider_id] < COOLDOWN_PERIOD:
+		continue
+		else:
+		del violation_cooldown[rider_id]
+		
+		detected_riders[rider_id] = (px1, py1, px2, py2, cls_name)
+		
+		if cls_name in VIOLATION_CLASSES:
+		if cls_name == "person with helmet" or cls_name == "person with no helmet":
+		current_violations.add("NO-HELMET")
+		violation_cooldown[rider_id] = current_time
+		elif cls_name == "person with wrong helmet use":
+		current_violations.add("WRONG-HELMET")
+		violation_cooldown[rider_id] = current_time
+		
+		# Overloading detection (with cooldown)
+		if len(detected_riders) > 2:
+		current_violations.add("OVERLOADING")
+		# Add cooldown for all riders in this motorcycle
+		for rider_id in detected_riders:
+		violation_cooldown[rider_id] = current_time
+		
+		# Clean up old entries from tracking dictionaries
+		current_rider_ids = set(detected_riders.keys())
+		for rider_id in list(last_detected_riders.keys()):
+		if rider_id not in current_rider_ids:
+		last_detected_riders.pop(rider_id, None)
+		
+		last_detected_riders = detected_riders.copy()
+		
+		violation_buffer.append(current_violations)
+		combined_violations = set().union(*violation_buffer)
+		violation_detected = bool(combined_violations)
+		
+		# === Prevent duplicate logs / videos for same continuous violation ===
+		if violation_detected:
+		# Trigger log/beep only once for a continuous violation event,
+		# or if the violation content changed (different violation type)
+		if (not violation_active) or (combined_violations != last_logged_violation):
+		play_beep()
+		log_violation(combined_violations)
+		last_logged_violation = combined_violations.copy()
+		violation_active = True
+		else:
+		# No active violation -> reset active flag so next event can be logged/saved
+		violation_active = False
+		
+		# === Drawing annotations ===
+		annotated_frame = frame.copy()
+		for x1, y1, x2, y2, cls_name in valid_boxes:
+		if cls_name == "motorcycle":
+		color = (255, 0, 0)
+		elif cls_name == "person with proper helmet":
+		color = (0, 255, 0)
+		elif cls_name in ["person with helmet", "person with no helmet"]:
+		color = (0, 0, 255)
+		elif cls_name == "person with wrong helmet use":
+		color = (0, 165, 255)
+		else:
+		color = (200, 200, 200)
+		
+		cv2.rectangle(annotated_frame, (x1, y1), (x2, y2), color, 2)
+		cv2.putText(annotated_frame, cls_name, (x1, y1 - 6),
+		cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+		
+		#  RED WARNING TEXT WHEN VIOLATION IS DETECTED
+		if violation_detected:
+		cv2.putText(annotated_frame, "VIOLATION DETECTED!!",
+		(50, 50), cv2.FONT_HERSHEY_SIMPLEX,
+		1.2, (0, 0, 255), 4)
+		
+		cv2.putText(annotated_frame, datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+		(10, annotated_frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+		
+		# === Video recording logic ===
+		pre_violation_buffer.append(annotated_frame.copy())
+		
+		if violation_detected:
+		if not recording:
+		recording = True
+		recorded_frames = []
+		recorded_violations = combined_violations.copy()
+		record_start_time = time.time()
+		
+		# append frames while recording
+		recorded_frames.append(annotated_frame.copy())
+		post_violation_buffer.clear()
+		
+		# save when enough frames accumulated
+		if len(recorded_frames) >= max(1, int(max_duration * real_fps)):
+		frames_to_save = list(pre_violation_buffer) + recorded_frames
+		# save only once per recording session (recording flag controls this)
+		save_violation_video(frames_to_save, recorded_violations, fps=30)
+		recording = False
+		recorded_frames = []
+		recorded_violations = set()
+		last_violations.clear()
+		pre_violation_buffer.clear()
+		post_violation_buffer.clear()
+		
+		else:
+		if recording:
+		frames_to_save = list(pre_violation_buffer) + recorded_frames + list(post_violation_buffer)
+		save_violation_video(frames_to_save, recorded_violations, fps=30)
+		recording = False
+		recorded_frames = []
+		recorded_violations = set()
+		last_violations.clear()
+		pre_violation_buffer.clear()
+		post_violation_buffer.clear()
+		else:
+		post_violation_buffer.append(annotated_frame.copy())
+		
+		ret, buffer = cv2.imencode('.jpg', annotated_frame)
+		if not ret:
+		continue
+		yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+		
+		
+		@app.route('/')
+		def index():
+		return render_template("dashboard.html")
+		
+		
+		@app.route('/video_feed')
+		def video_feed():
+		return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+		
+		
+		@app.route('/violations/<path:filename>')
+		def get_violation(filename):
+		filepath = os.path.join(VIOLATION_FOLDER, filename)
+		if not os.path.exists(filepath) or not filename.lower().endswith(".mp4"):
+		abort(404)
+		return send_from_directory(VIOLATION_FOLDER, filename, mimetype="video/mp4", as_attachment=False)
+		
+		
+		@app.route('/saved_videos')
+		def saved_videos():
+		try:
+		files = sorted([f for f in os.listdir(VIOLATION_FOLDER) if f.lower().endswith(".mp4")], reverse=True)
+		return jsonify(files)
+		except Exception as e:
+		return jsonify({"error": str(e)})
+		
+		
+		@app.route('/logs')
+		def get_logs():
+		return jsonify(violation_logs)
+		
+		
+		@app.route('/delete_violation/<path:filename>', methods=['POST'])
+		def delete_violation(filename):
+		global violation_logs
+		filepath = os.path.join(VIOLATION_FOLDER, filename)
+		if os.path.exists(filepath) and filename.lower().endswith(".mp4"):
+		try:
+		os.remove(filepath)
+		except Exception as e:
+		return jsonify({"success": False, "message": str(e)}), 500
+		
+		time_prefix = filename.split('_')[0]
+		violation_logs[:] = [log for log in violation_logs if time_prefix not in log]
+		return jsonify({"success": True})
+		
+		return jsonify({"success": False, "message": "File not found"}), 404
+		
+		
+		if __name__ == "__main__":
+		app.run(host="0.0.0.0", port=5000, debug=False)
+	\end{lstlisting}
+	
+\end{multicols}
+
+\chapter{Evaluation Tools}
+\centering
+
+
+\chapter{Documentations}
+\centering
+
+
+\chapter{Joint Affidavit of Undertaking  (Plagiarism)}
+\centering
+
+\textbf{JOINT AFFIDAVIT OF UNDERTAKING}
+
+
+% IN WITNESS WHEREOF, I have hereunto set my name this ____ day of ___________ 202__ in
+% ___________________________________, Philippines.
+% SUBSCRIBED AND SWORN TO before me this ___ day of ________ at _______________, Philippines,
+% affiants exhibiting to me their competent proofs of identity above stated.
+% Doc. No. ___________:
+% Page No.: __________:
+% Book No.: __________:
+% Series of 202_.
+
+\chapter{Project Team Assignment Form}
+\centering
+
+
+\chapter{Role Acceptance Form }
+\centering
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/Fig A RAF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig B RAF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig C RAF.jpg}
+	\label{fig:example}
+\end{figure}
+
+\chapter{Final Project Title Form}
+\centering
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig title form.jpg}
+	\label{fig:example}
+\end{figure}
+
+\chapter{Thesis Project Hearing Form (TD, POD, FOD)}
+\centering
+
+
+\chapter{Panel RSC (TD,POD,FOD)}
+\centering
+
+
+\chapter{ Consultation Logs Form}
+\centering
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 1 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 2 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 3 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 4 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 5 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 6 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 7 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 8 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 9 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/Fig 10 CLF.jpg} 
+	\label{fig:example}
+\end{figure}
+
+
+\chapter{Language Editing Certification}
+\centering
+
+This is to certify that the undersigned has reviewed and went through all the pages of the Bachelor of Science in Computer Science thesis manuscript titled \\
+
+\textbf{"HELMET COMPLIANCE DETECTION USING COMPUTER VISION FOR SAFER ROADS"} \\
+
+
+of \textbf{Dela Justa, Aina Mae F}, \textbf{Epres, Caren Joy L} \, \textbf{Matubis, Maria Angela N}, as against the set of structural rules that govern research writing in accord with the composition of sentences, phrases, and words in the English language.
+\newline \newline \newline \\
+
+\noindent \textbf{MA ALLAIGNE C. AGNA} \\
+\textit{Language Editor} \\
+
+Date:\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+
+\chapter{Secretary's Certification}
+\centering
+
+This is to certify that the undersigned has provided accurate recommendations, suggestions, and comments unanimously agreed and approved by the panel of examiners during the oral examination of the thesis titled \\ \textbf{"HELMET COMPLIANCE DETECTION USING COMPUTER VISION FOR SAFER ROADS"} \\  prepared and submitted by \textbf{Dela Justa, Aina Mae F}, \textbf{Epres, Caren Joy L}, \textbf{Matubis, Maria Angela N}, and that the same have not been amended, modified or obliterated. \newline \newline \newline \\
+
+
+
+\textbf{MS. MARRI GRACE MORATA} \\
+\textit{Secretary} \\
+
+
+Date:\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\chapter{Grammarian Certificate}
+\centering
+
+This is to certify that the undersigned has reviewed and went through all the pages of the Bachelor of Science in Information Technology thesis manuscript titled
+
+
+\textbf{"HELMET COMPLIANCE DETECTION USING COMPUTER VISION FOR SAFER ROADS"} 
+
+of \textbf{Aina Mae F. Dela Justa, Caren Joy L. Epres, Maria Angela N. Matubis}, as against the set of structural rules that govern research writing in accord with the composition of sentences, phrases, and words in the English language.
+
+\vspace{3\baselineskip}
+
+\textbf{MS. MA. ALLAINE C. AGNA} \\
+\textit{Grammarian} \\
+
+
+Date:\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\chapter{Certificate of Transfer}
+\centering
+
+\begin{figure}[h] 
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/Fig 32.jpg} 
+	\label{fig:example}
+\end{figure}
+
+
+
+\chapter{ACM Format}
+\centering
+
+
+\chapter{Certificate of Plagiarism Checker}
+\centering
+
+
+\end{theappendices}

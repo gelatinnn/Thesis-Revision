@@ -1,0 +1,117 @@
+\chapter{Introduction}
+\begin{refsection}
+\section{Background of the Problem}
+
+Motorbike accidents had been steadily increasing worldwide, leading to severe injuries and fatalities. One major contributing factor was the lack of helmet compliance and the dangerous practice of triple riding. In India alone, over 37 million individuals own and operate two-wheelers, making it critical to implement an effective monitoring system to enforce safety regulations and reduce accidents. A webcam was used for real-time video input, capturing and processing images to detect violations. The trained neural network then analyzed the webcam input, providing output based on the learned data. The system achieved an estimated 70\% accuracy, with future improvements aimed at enhancing detection precision and real-time performance.\cite{Maddi2023}. Many motorcyclists frequently violated traffic rules by not wearing helmets, and enforcement by traffic police was often limited due to the demanding nature of manual monitoring. This automated helmet detection prototype had the potential to enhance traffic law enforcement and reduce human intervention, leading to safer road environments \cite{Godbole2024}. 
+
+The requirement for ongoing surveillance, particularly in busy locations or along lengthy stretches of road, exacerbated this problem. The safety of motorcycle riders was directly put at risk by the ineffectiveness of the enforcement procedures. The creation of an automated, vision-based safety identification and monitoring that could precisely identify the presence or absence of helmets in real-time was required to solve this issue \cite {Kumar2023}. Given the significant portion of traffic-related fatalities attributed to motorcycle accidents resulting from non-compliance with helmet regulations. Acknowledging the critical role of helmets in rider protection, this paper presented an innovative approach to helmet violation detection using deep learning methodologies \cite{Said2024}. 
+
+Deep learning, a subset of machine learning that uses artificial neural networks to learn from large amounts of data, was applied in automatic helmet detection. Deep learning models were trained using large datasets of helmet-wearing and non-helmet-wearing people. The neural networks learned to recognize the features that distinguished helmet-wearers from non-helmet-wearers. Once trained, the deep learning model was used to automatically detect whether a rider was wearing a helmet or not \cite{Thakur2024}.
+
+Motorcycle-related accidents had become a growing concern worldwide, significantly contributing to road injuries and fatalities. According to the World Health Organization (WHO), more than 1.35 million people died annually due to road crashes, with motorcycle riders being among the most vulnerable. One of the leading causes of these accidents was the failure to wear helmets, which served as a critical protective measure against head injuries. Despite laws mandating helmet use, non-compliance remained a widespread issue, exacerbated by weak enforcement and inadequate monitoring. In the Philippines, motorcycle accidents significantly increased over the years, making them one of the leading causes of road fatalities. According to the Metropolitan Manila Development Authority (MMDA), in 2022, motorcycle-related accidents accounted for more than 30\% of road crash incidents in Metro Manila alone, resulting in severe injuries and fatalities. MMDA also reported a 17.3 percent increase in motorcycle-related road crashes in 2023. Based on the data from its Road Safety Unit, the MMDA said that a total of 26,599 motorcycle-related crashes were recorded in 2022 \cite{MMDA2023}. 
+
+Republic Act No. 10054, also known as the Motorcycle Helmet Act of 2009, mandated that all motorcycle riders and their passengers wear standard protective helmets while on the road. This law aimed to reduce head injuries and fatalities by ensuring that helmets meet specific safety standards. Despite the implementation of Republic Act No. 10054, also known as the Motorcycle Helmet Act of 2009, which mandates all motorcycle riders to wear standard protective helmets, many riders continued to violate this law, leading to preventable deaths \cite{Republic2009}. The so-called “nutshell helmet” is classified as an unsafe and non-standard protective gear for motorcycle riders. It does not comply with the regulations outlined in Republic Act No. 10054, or the Motorcycle Helmet Act of 2009, which mandates that all motorcycle riders and passengers must wear protective helmets bearing a Philippine Standard (PS) or Import Commodity Clearance (ICC) mark certified by the Bureau of Product Standards (BPS). Typically manufactured from inferior materials, nutshell helmets provide insufficient protection to the head and face and are often devoid of visors, reducing visibility during adverse weather conditions such as rain or strong winds. These helmets are originally intended for bicycles or skateboards, and therefore, lack the durability and impact resistance required for motorcycle use. Consequently, the Land Transportation Office (LTO) and the Inter-Agency Council for Traffic (I-ACT) have strongly discouraged their use. Some local government units (LGUs), including Dagupan City, have even imposed penalties on individuals found using such substandard helmets. To ensure both safety and regulatory compliance, motorcycle riders are advised to wear full-face or J-type helmets with PS or ICC certification, as these provide greater protection and effectively minimize the risk of head injuries in road accidents.
+
+A major challenge in enforcing helmet compliance was the reliance on manual monitoring by law enforcement officers, which was often inconsistent and inefficient. Traditional methods such as road checkpoints and manual inspections required significant resources and were prone to human error. Moreover, with the increasing number of motorcyclists on the road, it became nearly impossible for authorities to monitor helmet compliance effectively. The absence of a scalable and automated monitoring system contributed to the ongoing problem, creating a need for technological solutions that ensured stricter enforcement of traffic laws. With advancements in artificial intelligence (AI) and computer vision, deep learning technologies emerged as powerful tools for automating helmet compliance detection. Deep learning, a subset of AI, enabled machines to process vast amounts of visual data, recognize patterns, and make accurate classifications. Technologies such as YOLO (You Only Look Once) and OpenCV allowed real-time helmet detection with high precision, making them ideal for traffic monitoring applications. These technologies had been implemented in smart surveillance systems for vehicle detection, passenger counting, and helmet compliance monitoring.
+
+To address the limitations of manual enforcement, this research proposed the development of a Helmet Compliance Detection prototype using computer vision and deep learning algorithms to automatically detect whether motorcycle riders were wearing helmets correctly. The prototype focused on enhancing helmet compliance monitoring through several key features. It accurately determined if a rider was properly wearing a helmet on their head and not just carrying it. It also verified if the helmet was securely fastened and correctly positioned. Helmets, generally classified into several categories based on their structure and intended use, were considered in the study. The prototype concentrated on the standard motorcycle helmet, which covered the entire head and included a chin strap and often a visor. This type of helmet offered the most protection and was typically required by law in many regions. The prototype also included vehicle filtering, which identified if a vehicle was a motorcycle or not. If yes, it proceeded to helmet detection. In helmet detection, there were three classes: person with no helmet, person with proper helmet, and person with wrong helmet use. In the person with wrong helmet use category, it included improper use of a helmet such as not fastened correctly, just holding the helmet, or wearing the wrong helmet (e.g., bicycle helmets, construction helmets). This helped prevent the use of improper or mismatched helmets, which were flagged as violations to promote stricter adherence to safety standards. Moreover, the prototype enforced passenger limits by counting riders to ensure no more than two people were on a motorcycle at any time. Any overloading was automatically flagged as a violation. Upon detecting any violations, a red warning was displayed on the system monitor, and the prototype automatically saved short video clips as evidence, supporting authorities in tracking and penalizing repeat offenders. By integrating these features, the prototype aimed to improve road safety, assist law enforcement in effectively implementing helmet laws, and ultimately reduce motorcycle-related accidents and fatalities.
+
+\section{Statement of the Problem}
+
+Many motorcycle riders did not follow helmet laws, which led to a high risk of accidents, serious injuries, or even death. Traffic officers faced challenges in manually checking whether motorcycle riders were wearing helmets, as the process was time-consuming and required significant effort. Since officers could not monitor every rider, many violations went unnoticed, making the enforcement of helmet laws difficult. Identifying helmet usage under various conditions was a challenge for the proposed prototype. In poor lighting, such as at night or in dark areas, the prototype struggled to clearly identify the rider’s head. Similarly, in adverse weather conditions like fog or heavy rain, recognizing helmets was difficult. When there were large numbers of motorcycles, it was hard to check if each rider was wearing a helmet. Because of these challenges, the prototype needed to be tested to ensure it accurately detected helmets and provided reliable results. It was evaluated under different conditions such as varied weather and lighting. Its speed and real-time detection performance had to be assessed to ensure it was reliable in supporting road safety efforts.
+
+
+\section{Objectives of the Study}
+This section outlined the study’s objectives in developing an AI-based helmet detection prototype to improve road safety.
+
+\subsection{General Objective}
+
+The main objective of this study was to design and develop a Helmet Compliance Detection Using Computer Vision for Safer Roads that effectively monitored and detected helmet violations among motorcycle riders using Artificial Intelligence (AI), Deep Learning, and Computer Vision. This prototype aimed to provide an accurate and automated solution for identifying non-compliance with helmet regulations, reduced reliance on manual monitoring, and enhanced the enforcement of road safety laws.
+
+\subsection{Specific Objectives}
+
+The specific objectives of this study were as follows:
+
+\begin{enumerate}
+	\item Implemented deep learning models using YOLO for object detection, and OpenCV for image and video processing.
+	\item Developed an Artificial Intelligence-based prototype integrating the implemented models for helmet detection. 
+	\item Evaluated the performance of the designed helmet detection prototype under different conditions such as lighting variations, weather changes, and multiple riders using accuracy, precision, recall, F1-score, mean average precision (mAP), and detection speed measured in frames per second (FPS).
+\end{enumerate}
+   
+
+\section{Significance of the Study}
+
+This study focused on applying Artificial Intelligence in traffic law enforcement, particularly in monitoring motorcycle helmet compliance. It benefited the following stakeholders:
+
+\begin{itemize}
+	\item \textbf{Students.} Particularly those studying Computer Science gained valuable insights into the practical applications of AI in traffic law enforcement. This study served as a reference for developing intelligent transportation systems and encouraged innovative approaches to road safety.
+	
+	\item \textbf{Motorcycle Riders.} By ensuring helmet compliance, the prototype promoted rider safety, reduced the risk of severe injuries or fatalities, and encouraged responsible riding behavior.
+	
+	\item \textbf{Law Enforcement.} The prototype automated helmet compliance monitoring, reduced manual inspections, and improved accuracy. It enhanced efficiency, minimized human error, and provided valuable data for road safety policies.
+	
+	\item \textbf{Camarines Sur.} The implementation of this prototype benefited Camarines Sur by improving road safety and reducing motorcycle-related accidents. Local authorities used this technology to enhance traffic enforcement and ensure compliance with helmet laws.
+	
+	\item \textbf{Researcher.} This research established a foundation for AI-driven traffic monitoring, enabling further studies in deep learning, object detection, and real-time surveillance.
+	
+	\item \textbf{Future Researchers.} The study laid the foundation for further research on AI-driven law enforcement systems, enabling advancements such as database integration and expanded traffic violation detection.
+	
+\end{itemize}
+
+\section{Scope and Limitation}
+
+
+This study aimed to develop and implement an AI-based prototype that used YOLOv8 for detecting motorcycles, e-bikes, and bicycles, as well as helmet usage. OpenCV was used for real-time video and image processing, and the prototype identified whether riders were wearing helmets properly. In addition, it counted the number of passengers on each vehicle to ensure compliance with road regulations, particularly limiting motorcycle passengers to two. The prototype was deployed along Nabua Highway. The implementation involved capturing real-time video through strategically placed surveillance cameras.
+
+The prototype’s outputs, including flagged violations such as no helmet, improper helmet use, or overloading, were stored as video clips for review by authorities. However, the prototype had limitations. It functioned only in areas covered by surveillance cameras. Its accuracy declined in low-light or adverse weather conditions such as rain or fog. Differentiating among similar vehicle types (e.g., tricycle, e-bikes, and motorcycles) sometimes introduced errors. The prototype was not connected directly to enforcement systems during the pilot phase and initially functioned as a standalone system.
+
+
+\section{Project Dictionary}
+
+
+To avoid problems in understanding the terms used, the following technical terms are conceptually and operationally defined to provide better understanding. 
+
+\begin{itemize}
+	\item \textbf{AI (Artificial Intelligence).} The simulation of human intelligence in machines that enabled them to perform tasks such as learning, reasoning, and visual recognition \cite{Russell2021}. In this study, the prototype integrated AI-powered computer vision models to automatically analyze video data, detect helmets and count passengers without human intervention.
+	
+	\item \textbf{Algorithm.} A set of well-defined instructions or rules used to solve a specific problem or perform a computation \cite{Cormen2009}. In this study, the prototype used machine learning and image processing algorithms to detect helmets, count passengers, and recognize plate numbers from camera feeds. 
+	
+	\item \textbf{Accident Prevention.} Encompasses strategies and measures aimed at reducing the occurrence of unintended events that resulted in injury, death, or property damage. It involves identifying potential hazards, assessing risks, and implementing interventions to mitigate these risks~\cite{HarmsRingdahl2013}. In this study, accident prevention referred to the deployment of artificial intelligence (AI) and computer vision technologies to moni- tor and analyze real-time data from surveillance prototypes. The goal was to detect and alert authorities about potential accidents or safety violations, thereby enabling timely interventions to prevent incidents.
+	
+	\item \textbf{Computer Vision.} A field of artificial intelligence that enabled computers and sys- tems to derive meaningful information from digital images, videos, and other visual inputs \cite{Szeliski2010}.In this study, the prototype processed video feeds from cameras to au- tomatically detect helmets and count passengers without manual intervention.
+	
+	\item \textbf{Dataset.} A structured collection of data used to train or evaluate machine learning models. In computer vision, datasets consisted of labeled images or videos \cite{Deng2020}. In this study, the prototype utilized a dataset containing images of motorcycle riders with and without helmets, plate numbers, and various riding conditions to train the object detection model. These datasets were sourced from public datasets or collected manually for model training and validation.
+	
+	\item \textbf{Deep Learning.} A subset of machine learning involving neural networks with multiple layers that learned patterns and representations from large datasets \cite{Goodfellow2016}. In this study, AI models were used to detect helmets in video using deep neural networks.
+	
+	\item \textbf{Helmet.} A protective covering for the head, typically made of a hard material, used as part of safety gear to prevent head injuries \cite{MerriamHelmet}. In this study, it was what the prototype identified in real-time using computer vision techniques, ensuring that riders wore it properly. 
+	
+	\item \textbf{Helmet Compliance.} Wearing of a helmet the right way and following the law when riding a motorcycle \cite{WHO2018}. It helped prevent injuries and deaths in road accidents. In this study, helmet compliance was the main focus. The system used YOLOv8 to check if riders were wearing helmets properly and to spot those who were not, to help make roads safer.
+	
+	\item \textbf{Helmet Detection.} A computer vision task that involved identifying and verifying the presence of a helmet on a person in images or videos \cite{Hayat2022}. In this study, the prototype detected helmets in real-time using computer vision algorithms and determines if helmets were worn on the head and not held or carried by the riders.
+	
+	\item \textbf{Image Processing.} The manipulation of images through computational algorithms to enhance quality or extract useful information \cite{Gonzalez2018}. In this study, image processing techniques analyzed video footage to detect helmets and passengers, ensuring compliance with safety regulations and identifying violations.
+	
+	\item \textbf{Law Enforcement.} Refers to the system and practices used by government agencies to ensure public order, uphold laws, and prevent or investigate criminal activities \cite{BritannicaLaw}. In this study, AI-driven surveillance aided authorities by detecting violations, gathering evidence, and enhancing enforcement efficiency through real-time monitoring.
+	
+	\item \textbf{Object Detection.} A computer vision technique that identified and located objects within an image or video \cite{Tian2019}. In this study, object detection was used to recognize motorcyclists and determine whether they were wearing helmets by analyzing real-time footage from surveillance cameras.
+	
+	\item \textbf{Passenger Counting.} The process of counting the number of passengers in a vehicle using sensors or computer vision techniques \cite{Kim2022}. In this study, the prototype employed image processing and object detection to count passengers and compared this number with detected helmets to ensure compliance.
+	
+	\item \textbf{Road Safety.} The methods and measures used to prevent road users from being killed or seriously injured, including regulations, infrastructure, and education \cite{OxfordRef}. In this study, road safety included enforcing helmet laws, using an AI-powered monitoring prototype, improving traffic management, and promoting awareness campaigns.
+	
+	\item \textbf{Traffic Monitoring.} The systematic observation and recording of vehicular movement and flow on roads, often used to manage congestion and improve traffic systems \cite{BritannicaTraffic}. In this study, traffic monitoring involved using AI-powered cameras and sensors to detect motorcyclists, assess helmet usage, and identify violations in real time.
+	
+	\item \textbf{YOLO (You Only Look Once).} A deep learning-based object detection model that processed an image in a single pass to detect multiple objects in real time \cite{Redmon2020}. In this study, the prototype employed YOLOv8 to efficiently detect helmets on motorcycle riders and identify passengers within video footage.
+
+\end{itemize}
+
+
+
+
+%=======================================================%
+%%%%% Do not delete this part %%%%%%
+\clearpage
+
+\printbibliography[heading=subbibintoc, title={\texorpdfstring{\centering}{} Notes}]
+\end{refsection}

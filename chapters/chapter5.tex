@@ -1,0 +1,59 @@
+\chapter{Conclusion}
+\begin{refsection}
+This chapter provided an overview of the research project “Helmet Compliance Detection using Computer Vision for safer roads” utilizing YOLOv8 model, including its results, conclusions, and recommendations.
+
+\subsubsection{Summary}
+The study “Helmet Compliance Detection Using Computer Vision for Safer Roads” was conducted to provide a practical solution to the increasing number of motorcycle-related accidents in the Philippines. Many of these accidents were caused by riders who did not wear helmets properly and by motorcycles carrying more passengers than allowed. Although the Motorcycle Helmet Act of 2009 required the use of standard protective helmets, enforcement remained weak because manual monitoring was limited and prone to human error. To address this problem, the researchers developed an artificial intelligence–based prototype focused specifically on motorcycles and motorcycle riders. The prototype was designed using the YOLOv8 object detection model together with OpenCV to process video feeds and monitor riders in real time.
+
+A dataset of motorcycle riders with helmets, without helmets, and with improper helmet use was collected, annotated, and used to train the YOLOv8 model. To further improve accuracy, a vehicle filtering feature was added so that the prototype only detected motorcycles and excluded other types of vehicles. The trained model was then integrated into the prototype to identify correct and incorrect helmet usage, detect motorcycles with more than two riders, and record short video clips of violations for evidence. Initial tests conducted on sample videos showed that the prototype could reliably detect different types of violations in real time, particularly under normal lighting conditions. Some limitations were observed in low-light and unfavorable weather simulations, which reduced accuracy. Despite these challenges, the study demonstrated that computer vision and deep learning could effectively support helmet law enforcement. Overall, the prototype showed strong potential to improve road safety by focusing on motorcycle riders and served as a foundation for future enhancements and real-world deployment in AI-based traffic monitoring.
+
+\subsubsection{Findings}
+
+\begin{enumerate}
+	\item The researchers successfully implemented YOLOv8 for object detection and OpenCV for image and video processing. A total of 1,133 images were collected and categorized into five classes: motorcycle, non-motorcycle, person with no helmet, person with proper helmet, and person with wrong helmet use. Image preprocessing included resizing to 640×640 pixels, correcting orientations, and applying augmentation techniques such as flipping, rotation, cropping, brightness adjustment, blurring, and noise addition. These steps increased dataset diversity and model robustness, allowing the YOLOv8 model to adapt effectively to different lighting and environmental conditions. The implementation confirmed that YOLOv8 and OpenCV were efficient tools for building the foundation of an AI-based helmet compliance prototype.
+	
+	\item An AI-based real-time prototype was developed, integrating the trained YOLOv8 model to detect motorcycles and assess helmet compliance. The system first filtered motorcycles from the video feed before performing helmet detection to reduce false detections. It featured real-time alerts for violations, automatic video recording, and a web-based dashboard for live monitoring and reviewing saved violation clips. The dashboard displayed timestamps, detection labels, and alert notifications for each recorded event. The prototype functioned effectively in real-time, though occasional delays were observed when using devices without a dedicated GPU, especially during extended testing sessions.
+	
+	\item The prototype was tested under various conditions such as different lighting, motion speeds, and multiple riders. It performed best under clear lighting, successfully identifying helmet violations and generating instant alerts. However, performance slightly decreased in low-light or high-motion scenarios, where distinguishing between proper and wrong helmet use became challenging. Despite these limitations, the prototype maintained high reliability in detecting motorcycles and moderate accuracy in helmet classification. These results confirmed the system’s potential for real-world use, with improvements needed in dataset diversity, lighting adaptation, and GPU-based optimization.
+	
+\end{enumerate}
+
+\subsubsection{Conclusions}
+
+Based on the findings, the researchers came up with the following conclusions:
+
+\begin{enumerate}
+	\item The study successfully implemented YOLOv8 and OpenCV for object detection and image and video processing. The researchers collected and annotated a dataset of 1,133 images, applying preprocessing and data augmentation techniques to enhance variability and robustness. This provided a solid foundation for training a model capable of detecting motorcycles and classifying helmet usage.
+	
+	\item A functional monitoring prototype integrating the trained YOLOv8 model was developed, including a web-based dashboard to display live feeds, log violations, and save video clips. The system effectively detected motorcycles and identified helmet compliance, though some misclassifications occurred between proper and wrong helmet use.
+	
+	\item The prototype demonstrated reliable performance under favorable conditions, accurately detecting motorcycles and issuing violation alerts. Its effectiveness decreased under low-light or fast-moving scenarios, and hardware limitations, such as the lack of a GPU, caused occasional lag. Despite these challenges, the study provides a working prototype with potential for further optimization and real-world deployment for traffic safety monitoring.
+	
+\end{enumerate}
+
+\subsubsection{Recommendations}
+
+Based on the results, the researchers make the following recommendations:
+
+\begin{enumerate}
+	\item The created model can be improved by collecting more datasets, especially for the “wrong helmet use” category, to reduce class imbalance and improve accuracy in detecting different helmet conditions.
+	
+	\item Future research may also train the model using higher computational resources or a dedicated GPU to shorten training time, reduce lag, and achieve better performance.
+	
+	\item The prototype may be enhanced by integrating more advanced object detection architectures or combining YOLOv8 with other models to increase accuracy in helmet classification.
+	
+	\item The dashboard and interface can be further developed to run more smoothly on different devices and networks, allowing real-time monitoring without delays.
+	
+	\item The model should be fine-tuned with domain-specific datasets to better adapt to real-world conditions, such as varying lighting, weather, and traffic scenarios, while also addressing common misclassifications such as sunglasses being detected as “wrong helmet use,” dark helmet types being flagged as violations,or cases where a pedestrian gets misidentified as a passenger because the camera merges them when a motorcycle passes by. Through this refinement, the model’s precision can be increased, false positives reduced, and overall detection performance significantly improved.
+	
+	\item Future researchers may expand the application of the model by adding new features to strengthen road safety enforcement.
+	
+\end{enumerate}
+
+
+%=======================================================%
+%%%%% Do not delete this part %%%%%%
+\clearpage
+
+\printbibliography[heading=subbibintoc, title={\texorpdfstring{\centering}{} Notes}]
+\end{refsection}

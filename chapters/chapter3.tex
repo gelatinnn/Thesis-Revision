@@ -1,0 +1,364 @@
+
+\chapter{Methodology}
+\begin{refsection}
+This chapter explained the methods used to develop the Helmet Compliance Detection Using Computer Vision for Safer Roads. It included data collection, prototype development using the YOLO algorithm, integration of added features, and testing to ensure the prototype performed well in real-time detection of traffic violations.
+
+
+\section*{Research Design}
+
+Constructive research design involved the development of new prototypes or solutions based on existing knowledge and theories. This methodology enabled researchers to create practical, functional solutions that could be implemented in real-world scenarios. It focused on addressing real-world challenges by combining theoretical insights with practical applications. In fields such as technology and computer science, constructive research typically involved the creation of software or systems that enhanced or refined existing solutions, all while building on established principles to improve functionality and effectiveness \cite{Lassenius2001}.
+
+This study used a constructive research design to develop a real-time helmet compliance detection prototype that enhanced road safety monitoring through the use of AI-powered technologies. This research design was appropriate for the study because it focused on building a functional and innovative prototype that integrated computer vision components to address the identified gaps in traffic law enforcement. This study developed an intelligent detection prototype that was capable of identifying motorcycle riders without helmets, improper helmet usage, overloading of passengers, and missing. The prototype used the YOLOv8 object detection algorithm for real-time identification and OpenCV for visual processing. It also triggered alerts and automatically recorded violations for documentation and enforcement purposes. The prototype was designed for use along Nabua Highway, Camarines Sur, and it aimed to function effectively even in varying lighting and weather conditions. By constructing and evaluating this prototype, the study contributed a practical and scalable solution to improve road safety compliance using modern AI techniques. Adopting constructive research allowed this study to develop a practical solution for improving road safety. In everyday life, many accidents happened because riders did not wear helmets. To address this issue, this study built a prototype that automatically checked if riders were wearing helmets using computer vision. The prototype used a detection algorithm to identify helmets in real time. Through testing and collecting more data, the prototype was improved to make it more accurate. The goal was to build a prototype that traffic authorities could use to check helmet compliance and improve road safety. This study helped to make the roads safer and could help prevent accidents and save lives.
+
+
+\section*{ Theorems, Algorithm and Mathematical Framework}
+
+
+In the field of computer vision, algorithms and mathematical models were important in developing systems for real-time object detection. This study used a YOLOv8-based approach to detect helmet usage, count motorcycle passengers, and recognize license plates. YOLO (You Only Look Once) was a single-stage object detection algorithm known for its speed and accuracy, making it suitable for deployment in real-time environments.
+
+\section*{ YOLOv8 Object Detection Algorithm}
+
+
+YOLOv8 was the latest version of the YOLO family of algorithms, designed for fast and accurate object detection. Unlike previous versions, YOLOv8 introduced an anchor-free architecture, improved feature extraction, and decoupled detection heads for classification and localization, making it more flexible and precise. According to \citeauthor{Muhammad2024} [\citeyear{Muhammad2024}] YOLOv8 was used for real-time helmet detection in Indonesia, achieving a 91.1\% F1 score for helmet detection and 81.7 \% accuracy for rider detection \cite{Muhammad2024}. This study highlighted YOLOv8’s effectiveness in real-world applications, emphasizing its potential for smart city integration and law enforcement, particularly in monitoring motorcyclist safety.
+
+YOLOv8 worked by predicting bounding boxes and class probabilities directly from full images in one evaluation, treating detection as a regression problem. As illustrated in Figure 1, the algorithm followed a streamlined architecture composed of an input layer, backbone, neck, and prediction head, resulting in accurate and real-time object detection. It employed advanced loss functions, such as Complete Intersection over Union (CIoU), to improve bounding box accuracy. The algorithm also utilized Non-Maximum Suppression (NMS), which filtered overlapping bounding boxes and retained only the most confident predictions. Furthermore, YOLOv8 outputs were detected only when the confidence score exceeded a predefined threshold, reducing false positives.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{figures/Fig 1.png} % 75% of text width
+	\caption{Yolov8 Object Detection Architecture}
+	\label{fig:yolov8_architecture}
+\end{figure}
+
+
+
+
+Figure 1 illustrated the YOLOv8 architecture, showing how the model processes images for object detection. The input image is first resized and normalized before passing through the backbone, which extracts features using convolutional layers and C2f blocks. Next, the neck refines and fuses multi-scale features through concatenation and upsampling, and finally, the decoupled prediction head produces separate outputs for classification and localization, generating bounding boxes and labels. This process demonstrates how YOLOv8 efficiently extracts detailed spatial information and distinguishes between object classes and locations. By separating classification from localization, the architecture improves prediction accuracy and reduces errors, making the system more reliable for real-time applications. The clear flow from input to output highlights the model’s structured approach, ensuring that object detection is precise and systematic. Overall, the YOLOv8 architecture provides a robust framework for real-time detection, combining feature extraction, multi-scale fusion, and decoupled prediction to achieve accurate and efficient performance.
+
+
+
+\section*{Detection Mechanism of Yolov8}
+
+
+\subsection*{Bounding Box Prediction}
+
+
+YOLOv8 predicted the center coordinates $(x_{pred}, y_{pred})$, width $(w_{pred})$,
+and height $(h_{pred})$ for each object within a grid cell.
+
+
+The confidence score, used for evaluating bounding box accuracy, was given by the formula:
+
+
+\begin{equation}
+	Confidence = P_{object} \times IOU_{pred,truth}
+	\label{eq:confidence}
+\end{equation}
+
+
+\subsection*{Class Probability Prediction}
+
+
+YOLOv8 outputs a probability distribution across multiple object classes. For each bounding box, the network predicted the likelihood that it belonged to a particular class (e.g., helmet, rider, license plate).
+
+
+\subsection*{Complete Intersection over Union (CIoU)}
+
+
+To optimize bounding box predictions, YOLOv8 utilizes the Complete Intersection over Union (CIoU) loss function, which improved upon the standard IoU by considering not only the overlap area but also the distance between the center points of the predicted and ground truth boxes, as well as the consistency of their aspect ratios. This enhancement leads to more precise and reliable bounding box regression, resulting in improved overall performance for object detection tasks.
+
+
+Intersection over Union (IoU), on the other hand, served as a fundamental evaluation metric for object detection models, as it measured the degree of overlap between predicted and ground truth bounding boxes. A higher IoU indicated more accurate localization, while lower values reflect poor alignment. The following figure illustrated how IoU is computed and highlighted its role in assessing detection accuracy, with emphasis on YOLOv8’s refined approach.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{figures/Fig2.jpg}
+\caption{Intersection over Union (IoU)}
+\label{figures/Fig 2.jpg}
+\end{figure}
+
+
+As illustrated in Figure 2, IoU is computed by dividing the overlapping area of two boxes by their total combined area, indicating how closely the predicted box aligns with the ground truth. A higher IoU value signifies a better overlap between the predicted bounding box and the actual object. The figure further demonstrates this concept through three examples showing IoU values of 0.35, 0.74, and 0.93, corresponding to poor, good, and excellent box alignment, respectively. An IoU closer to 1 means the model has predicted the object’s location with high precision, while lower values indicate weaker performance. \cite{Terven2023}
+
+
+\subsection*{Non-Maximum Suppression (NMS)}
+
+
+YOLOv8 employed Non-Maximum Suppression (NMS) to efficiently eliminate redundant bounding boxes that predicted the same object. After the model generated multiple bounding boxes, NMS ranked them according to their confidence scores, identifying how likely each box contained an object. The algorithm then selected the highest-scoring box and suppressed any overlapping boxes whose Intersection over Union (IoU) with the selected box exceeded a predefined threshold. This process ensured that each detected object was represented by only one bounding box, reducing clutter and improving the clarity of detection results. The following figure demonstrated how NMS improved detection clarity and reduced overlap.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{figures/Fig 3.jpg}
+\caption{Example of Non-Maximum Suppression }
+\label{figures/Fig 3.jpg}
+\end{figure}
+Figure 3 effectively highlighted the importance of Non-Maximum Suppression (NMS) in enhancing the quality of object detection results produced by YOLOv8. Without NMS, as shown in the left image, the model outputted numerous overlapping bounding boxes for a single object, which could compromise the interpretability of the results and the accuracy of object localization. The right image, after NMS was applied, displayed a single, high-confidence bounding box, illustrating the algorithm’s ability to reduce redundancy and improve detection clarity. This reduction in noise not only improved precision but also lowered computational load during post-processing, making the system more efficient.
+
+
+In our study, the use of NMS was particularly important in refining predictions in complex scenes involving multiple or closely spaced objects such as identifying several riders or helmets in traffic scenarios. The figure provided clear visual evidence of how NMS strengthened both the robustness and operational efficiency of the YOLOv8-based detection pipeline \cite{ThePythonCode2021}.
+
+This process improves precision and lowers computational load during post-processing, increasing the system’s efficiency. NMS is particularly useful in complex scenarios with multiple or closely spaced objects, such as detecting several riders or helmets in traffic. By filtering overlapping boxes, the system produces cleaner outputs and more reliable detections, enhancing both robustness and operational performance. Overall, NMS is a critical component of the YOLOv8 pipeline, ensuring accurate, efficient, and interpretable detection results in real-world traffic monitoring applications.
+
+
+\section*{Materials and Statistical Tools/Evaluation Methods}
+
+
+This section provided detailed information on the materials, statistical tools, and evaluation methods employed in the development and assessment of the Helmet Compliance Detection Using Computer Vision for Safer Roads. It included the hardware and software components, the process followed to implement the prototype, the sampling technique, the statistical tests used for performance evaluation, and the methods employed for evaluating the prototype’s effectiveness.
+
+The section covered the hardware, software, and tools used in developing the prototype, along with the workflow for implementation, data sampling methods, and evaluation. It highlighted the use of statistical techniques such as accuracy, confusion matrices, and error rate analysis, and explained how effectiveness was assessed through detection accuracy, response time, and reliability under real-world conditions.
+
+
+
+\section*{Instrument}
+
+The research tool used by the researchers to carry out the study was described in this section, including its design, purpose, and role in collecting and analyzing data for the evaluation of the Helmet Compliance Detection prototype. It also explained how the tool was applied during testing, the parameters it measured, and the way it supported the assessment of the system’s accuracy, reliability, and effectiveness in real-world conditions.
+
+\subsection*{Dataset}
+
+The dataset used in this study was custom-created and annotated by the researchers to support helmet compliance monitoring and accurate motorcycle detection using YOLOv8. It contains five classes: Motorcycle, Not Motorcycle (for vehicle filtering), Person with No Helmet, Person with Proper Helmet, and Person with Wrong Helmet Use. Passenger counting was handled directly in the system’s code by detecting the number of riders per motorcycle and flagging violations if more than two were present.
+A total of 1,242 images were collected from diverse real-world scenarios to ensure the trained model could reliably differentiate between helmet compliance cases while maintaining accurate motorcycle and non-motorcycle classification. The dataset was split into training (993 images), validation (125 images), and testing (124 images) to optimize model performance and evaluation.
+
+\begin{table}[H]
+	\centering
+	\caption{Distribution of Images and Instances per Class}
+	\label{tab:dataset_distribution}
+	\begin{tabular}{lcc}
+		\hline
+		\textbf{Class} & \textbf{Images} & \textbf{Instances} \\
+		\hline
+		Motorcycle & 172 & 205 \\
+		Not Motorcycle & 55 & 93 \\
+		Person with No Helmet & 52 & 73 \\
+		Person with Proper Helmet & 119 & 168 \\
+		Person with Wrong Helmet Use & 61 & 85 \\
+		\hline
+		\textbf{Total} & \textbf{459} & \textbf{624} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+The table summarizes the distribution of images and instances across the dataset used for training the helmet compliance detection model. While the dataset contains 459 unique images, the number of instances is higher at 624 because a single image may include multiple objects and multiple classes. Classes such as Motorcycle and Person with Proper Helmet have higher instance counts, indicating the presence of crowded traffic scenes where multiple riders and vehicles appear simultaneously. In contrast, classes associated with helmet violations contain fewer images and instances, reflecting the relative scarcity of these events in real-world data collection. This imbalance can influence the model’s learning process, potentially leading to variations in detection performance across classes. As a result, evaluation metrics such as precision, recall, and F1-score are more appropriate than overall accuracy for assessing model effectiveness. These dataset characteristics provide  context for interpreting the model’s performance trends discussed in the subsequent sections.
+
+
+\begin{figure}[H]
+\centering
+
+% Row 1
+\begin{subfigure}{0.30\textwidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/Fig 4a.jpg}
+	\caption{Motorcycle}
+	\label{fig:4a}
+\end{subfigure}%
+\hfill
+\begin{subfigure}{0.30\textwidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/Fig 4b.jpg}
+	\caption{Person with no helmet}
+	\label{fig:4b}
+\end{subfigure}
+
+% Row 2
+\begin{subfigure}{0.30\textwidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/Fig 4c.jpg}
+	\caption{Person with wrong helmet use}
+	\label{fig:4c}
+\end{subfigure}%
+\hfill
+\begin{subfigure}{0.30\textwidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/Fig 4d.jpg}
+	\caption{Person with proper helmet}
+	\label{fig:4d}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.30\textwidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/Fig 4e.jpg}
+	\caption{Not Motorcycle}
+	\label{fig:4e}
+\end{subfigure}
+
+\caption{Samples of Dataset: Motorcycle, person with no helmet, person with wrong helmet use, person with proper helmet and not motorcycle.}
+\label{fig:dataset_samples}
+\end{figure}
+
+The image above presents the Helmet Compliance Detection Using Computer Vision prototype, which was trained on a unified dataset containing four major classes that support its detection capabilities. These classes include Motorcycle, Person with No Helmet, Person with Wrong Helmet Use, and Person with Proper Helmet, allowing the system to accurately recognize motorcycles and evaluate helmet compliance among riders. Together, these classes enable the prototype to detect motorcycles, identify helmet violations, and assess overloading behavior by analyzing multiple riders in a single scene. This structure ensures that the system can analyze several safety-related factors simultaneously, improving its effectiveness in real-world monitoring. To further enhance detection accuracy, the prototype also uses a separate Vehicle Filtering Dataset containing a Not Motorcycle class, ensuring that non-motorcycle vehicles are filtered out before performing helmet and passenger analysis. Overall, the integration of these datasets strengthens the model’s reliability and supports a more efficient and precise detection process for road safety enforcement.
+
+\section*{Procedure / Process}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/Fig 5.jpg}
+	\caption{\textbf{Prototype of Flowchart}}
+	\label{figures/Fig 5.jpg}
+\end{figure}
+
+The diagram illustrated the real-time workflow of the Helmet Compliance Detection System, showing how each stage contributes to continuous monitoring and violation detection. The process began with video data collection and preprocessing, where incoming frames were prepared for analysis, followed by the application of a trained YOLOv8 model designed to detect helmets worn by motorcycle riders and passengers. This setup demonstrates how the system transitions from raw video input to intelligent detection, highlighting the model’s role in identifying compliance and violations accurately. This workflow is important because it helps the system focus only on motorcycles, making the detection faster and more accurate. After filtering, the system evaluated helmet compliance, triggered alerts when violations were detected, and automatically saved short video clips as evidence, enabling clear documentation for enforcement and review. Overall, the continuous looping of the detection process ensures uninterrupted monitoring, making the system effective for supporting road safety initiatives and strengthening helmet law enforcement through automated, real-time analysis.
+
+
+
+\subsection{Data Collection}
+Video footage is live along the Nabua Highway under various traffic and lighting conditions to capture real-world motorcycle scenarios. These videos serve as the primary input for detecting helmet usage.
+
+\subsection{Data Preprocessing}
+The collected data were processed using OpenCV to resize frames, enhance image quality, and normalize the input. This step ensures that the data is clean and ready for analysis by the detection model.
+
+\subsection{Model Training}
+The YOLOv8 model was trained using labeled data to identify whether the rider and passenger are wearing helmets. The model was tested with a separate dataset to ensure its accuracy in helmet detection.
+
+\subsection{Vehicle Filtering}
+As vehicles passed through the camera, the system first filtered and detected whether the vehicle was a motorcycle. Only motorcycles were analyzed for helmet compliance.
+
+\subsection{Helmet Detection}
+Once a target vehicle was identified as a motorcycle, the system proceeded to detect whether the rider was wearing a helmet. If a passenger was also detected, the system checked whether the passenger was wearing a helmet, holding one, or using it incorrectly.
+
+\subsection{Real-time Monitoring}
+All detection processes ran in real time, ensuring continuous monitoring and immediate feedback on helmet law compliance.
+
+\subsection{Real-time Violation Alert}
+If any person on the motorcycle (rider or passenger) was detected without a helmet or using a helmet incorrectly, a real-time violation alert popped up on the monitoring screen. This allowed for immediate awareness and potential enforcement.
+
+
+\noindent
+
+\section*{Normalized Value}
+The normalized value is used to standardize the raw user feedback scores, transforming them into a range between 0 and 1. The formula for normalization is:
+
+
+\begin{equation}
+\text{Normalized Value} = \frac{X - \min(X)}{\max(X) - \min(X)}
+\end{equation}
+
+
+\noindent Where:  
+\begin{itemize}
+\item $X$ is the raw score obtained from user feedback.
+\item $\min(X)$ is the minimum possible value (typically 0.0).
+\item $\max(X)$ is the maximum possible value (typically 1.0).
+\end{itemize}
+
+\noindent
+After applying the formula, the responses were converted into normalized values, which were then mapped to the ranges presented in Table 3, allowing each response to be categorized according to defined satisfaction levels. This process ensures that the feedback is organized systematically and can be interpreted clearly. Normalization makes the responses consistent and comparable across different components of the prototype, preventing discrepancies that may arise from varying input values. The categorized results provide a clear understanding of satisfaction, highlighting which aspects of the prototype perform well and which areas may require improvement or refinement. This structured approach supports informed evaluation, allowing developers and researchers to identify priorities for enhancement. Overall, the normalization and categorization process not only allows for accurate and reliable assessment of the prototype’s effectiveness but also serves as a valuable guide for future improvements, ensuring that refinements are focused on areas that need the most attention.
+
+\section*{Evaluation Method}
+To evaluate the performance of the proposed Helmet Compliance Detection Using Computer Vision for Safer Roads, several standard evaluation metrics were utilized. These metrics assess the system’s accuracy in detecting helmet usage, counting passengers, and identifying violations in real time. The evaluation was based on comparing the model’s predictions against manually annotated ground truth data using test video segments.
+
+
+\subsection*{Accuracy}
+
+Accuracy measured the overall effectiveness of the prototype by calculating the percentage of correctly identified objects (motorcycles, helmets and overloading violations) as well as correctly filtered non-motorcycle vehicles. It provides a general view of the system’s performance across all detection tasks.
+
+\begin{equation}
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+\end{equation}
+
+Where:
+\begin{itemize}
+\item \textbf{TP (True Positives):} Instances where motorcycles, helmets, passengers, overloading violations, or non-motorcycles were correctly detected or filtered.
+
+\item \textbf{TN (True Negatives):} Instances where non-violations or non-motorcycle objects were correctly ignored.
+
+\item \textbf{FP (False Positives):} Instances where incorrect objects were detected, such as misclassifying a non-motorcycle as a motorcycle or falsely detecting a helmet violation.
+
+\item \textbf{FN (False Negatives):} Instances where motorcycles, helmets, passengers, overloading violations, or non-motorcycles were missed.
+\end{itemize}
+\begin{itemize}
+	
+	\item \textbf{Precision:}  
+	Precision measures the ability of the system to correctly identify positive cases out of all instances that the system marked as positive.
+	
+	\begin{equation}
+		Precision = \frac{TP}{TP + FP}
+	\end{equation}
+	
+	\item \textbf{Recall:}  
+	Recall evaluates the ability of the system to detect all actual positive cases.
+	
+	\begin{equation}
+		Recall = \frac{TP}{TP + FN}
+	\end{equation}
+	
+	\item \textbf{F1-Score:}  
+	The F1-Score is the harmonic mean of precision and recall.
+	
+	\begin{equation}
+		F1\text{-}Score = \frac{2 \times Precision \times Recall}{Precision + Recall}
+	\end{equation}
+	
+\end{itemize}
+
+
+\subsection*{Mean Average Precision (mAP)}
+
+Mean Average Precision (mAP) evaluates both the precision and localization accuracy of the predicted bounding boxes across all object classes.
+
+\begin{equation}
+	mAP = \frac{1}{N} \sum_{i=1}^{N} AP_i
+\end{equation}
+
+Where:
+\begin{itemize}
+	\item $N$ = Number of object classes
+	\item $AP_i$ = Average Precision for the $i$-th class
+\end{itemize}
+
+\noindent
+
+
+\subsection*{Frames Per Second (FPS)}
+
+FPS measures how fast the system processes video frames.
+
+\begin{equation}
+	FPS = \frac{\text{Number of Processed Frames}}{\text{Time Taken (in seconds)}}
+\end{equation}
+
+
+
+Table 2 presents the Confusion Matrix used to evaluate the performance of the Helmet Compliance Detection Model. The matrix summarizes the relationship between actual and predicted classifications using True Positive (TP), False Positive (FP), True Negative (TN), and False Negative (FN) values. High TP and TN counts indicate that the model accurately detects helmet use and non-use, while lower FP and FN values demonstrate strong reliability and precision. These results align with the model’s training accuracy, confirming the YOLOv8’s effectiveness in distinguishing helmet compliance among riders. However, minor misclassifications may occur under challenging conditions such as motion blur or low lighting. Overall, Table 2 validates that the model performs efficiently and reliably in classifying helmet compliance for real-time monitoring applications.
+
+\begin{equation}
+FPS = \frac{\text{Number of Processed Frames}}{\text{Time Taken (in seconds)}}
+\label{eq:fps}
+\end{equation}
+
+Equation 3.8 defines how Frames Per Second (FPS) is computed to measure the real-time processing speed of the detection system. The FPS value is determined by dividing the number of processed frames by the total processing time, reflecting the system’s capability to handle live video feeds efficiently. A higher FPS value signifies smoother and faster detection, ensuring prompt alert generation for helmet violations. This metric supports the model’s suitability for continuous monitoring and live deployment. However, performance may slightly decrease on devices lacking GPU acceleration, resulting in reduced FPS. In summary, Equation 3.8 confirms the system’s ability to operate in real time while maintaining accurate and consistent detection performance.
+
+\noindent
+
+\section*{Theoretical Framework}
+This section outlined the theoretical underpinnings that guided the development of the Helmet Compliance Detection Prototype using computer vision. The framework integrated four key theories: Computer Vision Theory, Automated Law Enforcement Theory, Surveillance Theory, and Real-Time Embedded Systems Theory.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/Fig 6.jpg}
+\caption{\textbf{Theoretical Framework of the Helmet Compliance Detection }}
+\label{figures/Fig 6.jpg}
+\end{figure}
+Figure 6 presented a simplified visual representation of the theoretical framework that guided the development of the Helmet Compliance Detection Prototype. The framework was built upon four foundational theories: Computer Vision Theory, Automated Law Enforcement Theory, Surveillance Theory, and Real-Time Embedded Systems Theory, each of which contributed specific principles to the system’s design. These theories collectively show how technical and sociological aspects were integrated to enhance detection accuracy, operational efficiency, and real-time performance. By grounding the system in established theoretical concepts, the framework ensures that the prototype is not only technically effective but also socially relevant, supporting lawful and responsible enforcement. The connection between the theories and the framework highlights the importance of a multidisciplinary approach, combining engineering, computer science, and social science to guide the system’s development. Overall, the theoretical framework provides a strong foundation for the prototype, demonstrating how combining multiple perspectives can inform design decisions, improve functionality, and ensure that the system meets both technical and societal objectives.
+
+
+\subsection{Computer Vision Theory}
+This theory provided the foundation for interpreting and processing visual inputs (video or image data) to extract meaningful patterns. In this prototype, YOLOv8 was applied to enable real-time detection of motorcycles, riders’ helmet compliance, and overloading violations.
+
+\subsection{Automated Law Enforcement Theory}
+This theory emphasized the role of intelligent systems in supporting or replacing human roles in enforcing regulations. In the context of traffic compliance, the integration of technologies such as OpenCV and YOLOv8 aligned with the principles of automation for more accurate, consistent, and scalable monitoring.
+
+\subsection{Surveillance Theory}
+Surveillance Theory explained the sociotechnical importance of systematically observing and recording behaviors to ensure safety and rule compliance. This theory justified the deployment of camera-based monitoring systems in public spaces to detect and deter traffic violations, promoting accountability and public safety.
+
+\subsection{Real-Time Embedded Systems Theory}
+This theory supported the technical design of prototypes that processed data and responded within strict time constraints. It underpinned the implementation of real-time detection features in the system, enabling low-latency processing of live video feeds through optimized algorithms and embedded computing environments.
+
+
+%=======================================================%
+%%%%% Do not delete this part %%%%%%
+\clearpage
+
+\printbibliography[heading=subbibintoc, title={\texorpdfstring{\centering}{} Notes}]
+\end{refsection}

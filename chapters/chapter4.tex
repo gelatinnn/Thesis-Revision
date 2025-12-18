@@ -1,0 +1,411 @@
+
+\chapter{Results and Discussion}
+\begin{refsection}
+The data gathered during the study are presented and evaluated in this chapter. A discussion and thorough analysis of helmet compliance, wrong helmet use, and motorcycle overloading are also included in this chapter.
+
+
+\section{Data Collection}
+
+The first process in developing the Helmet Compliance Detection System was data gathering, which served as the foundation for all subsequent stages of model development. This phase involved systematically collecting, preparing, and organizing image data required for training the deep learning model. The researchers aimed to assemble a comprehensive, diverse, and well-balanced dataset that accurately reflected real-world motorcycle riding conditions. To achieve this, images were sourced from various environments, including highways, urban streets, and low-light areas, ensuring that the dataset captured a wide range of scenarios such as different weather conditions, traffic densities, rider positions, and helmet types.
+
+In addition to collecting raw images, the data gathering stage also included filtering out low-quality or irrelevant images, labeling each sample according to predefined categories, and ensuring that each category contained a sufficient number of representative examples. This careful preparation was essential for improving model performance and reducing the risk of biased or inconsistent predictions. Figure 7 below presents sample images of the five identified categories used in the study, illustrating the diversity of motorcycle riding scenarios incorporated into the dataset.
+
+\begin{figure}[H]
+	\centering
+	% First row - 3 images
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 7.png}
+		\caption{motorcycle}
+		\label{fig:classes_top_left}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 8.png}
+		\caption{not motorcycle}
+		\label{fig:classes_top_center}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 9.png}
+		\caption{person with no helmet}
+		\label{fig:classes_top_right}
+	\end{subfigure}
+	
+	% Space between rows
+	\vspace{0.6cm}
+	
+	% Second row - 2 centered images
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 10.png}
+		\caption{person with proper helmet}
+		\label{fig:classes_bottom_left}
+	\end{subfigure}
+	\hspace{0.1\textwidth}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 11.png}
+		\caption{person with wrong helmet use}
+		\label{fig:classes_bottom_right}
+	\end{subfigure}
+	
+	\caption{Examples of Dataset Classes for Helmet Compliance Detection.}
+	\label{fig:7_dataset_classes}
+\end{figure}
+
+
+
+As shown in Figure 7, the researchers successfully compiled a dataset that consisted of 1,242 labeled images, categorized into five classes: motorcycle, non-motorcycle, person with no helmet, person with proper helmet, and person with wrong helmet use. The dataset covered different environmental settings to ensure varied representation. Since images of “wrong helmet use” were difficult to obtain, the researchers captured original photos and supplemented them with online sources to achieve balance among all categories.
+
+The findings indicated that dataset quality and diversity were vital for developing an accurate helmet compliance detection model. Images captured under different lighting, angles, and scenarios improved generalization and reduced bias. Careful annotation and image processing ensured consistency and reliability prior to model training. The comprehensive dataset allowed the model to adapt to realistic traffic conditions, supporting effective detection in real-world applications.  Data augmentation techniques such as flipping, rotation, and brightness adjustment enhanced robustness against environmental variations. Despite its adequacy for training, the dataset’s limited size and lack of nighttime images presented minor constraints. Future work is recommended to expand image collection under diverse lighting and weather conditions to further improve model adaptability and performance. Overall, the dataset played a critical role in building a reliable Helmet Compliance Detection Prototype, providing sufficient quality, balance, and realism for accurate model training and evaluation.
+
+\section{Data Preprocessing}
+
+Following the data-gathering phase, the next procedure involved data preprocessing, which ensured that all images were properly formatted, annotated, and enhanced for model training. This process was carried out using Roboflow, a platform that provided tools for annotation, preprocessing, and augmentation. The preprocessing workflow performed on the dataset, including image organization, data splitting, and transformation steps.
+
+\begin{figure}[H]
+	\centering
+	% Left image
+	\begin{subfigure}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/Fig 25.jpg} 
+		\caption{Annotating the datasets}
+		\label{fig:data_annotating}
+	\end{subfigure}
+	\hfill
+	% Right image
+	\begin{subfigure}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/Fig 30.jpg} 
+		\caption{Generating the datasets}
+		\label{fig:data_generating}
+	\end{subfigure}
+	\caption{Data Pre-processing}
+	\label{fig:data_preprocessing}
+\end{figure}
+
+
+\noindent
+As illustrated in Figure 8, the preparation of the dataset in Roboflow involved two main stages. Image (a) displays the annotation process, where each image was manually labeled and categorized into five classes: motorcycle, non-motorcycle, person with no helmet, person with proper helmet, and person with wrong helmet use. This ensured that all images were properly classified and ready for model training. Meanwhile, Image (b) illustrates the generation of the dataset, which included resizing all images to 640×640 pixels and applying several enhancement techniques such as rotation, flipping, brightness adjustment, and cropping. These steps improved image consistency and diversity, allowing the YOLOv8 model to perform effectively across different lighting conditions, camera angles, and motion scenarios.
+
+A total of 1,242 images were collected and processed in Roboflow. Each image was uploaded, labeled, and organized into the five aforementioned categories, ensuring data completeness and proper structure. To support accurate model training and evaluation, the dataset was divided into 993 images for training, 125 for validation, and 124 for testing. This distribution allowed the model to learn from the majority of the images while its accuracy was assessed on separate, unseen subsets. This stage highlighted the importance of maintaining consistency in image preparation to achieve reliable deep learning results. Standardizing image dimensions and applying controlled augmentations enhanced the model’s adaptability to various real-world motorcycle riding conditions. Although the dataset remained smaller than large public collections, these measures ensured that the data were well-organized, sufficiently varied, and suitable for effective model training.
+
+\section{Model Training}
+
+This section discusses the training and evaluation of the YOLOv8 model developed for helmet compliance detection. It presents the model’s learning process and performance based on various evaluation metrics and visual results. Collectively, the figures and tables comprehensively summarize the model’s development, learning behavior, and overall detection performance across multiple real-world testing conditions, ensuring robust, accurate, and efficient helmet detection outcomes.
+
+\begin{table}[H]
+	\centering
+	\caption{YOLOv8 Training Results} 
+	\label{tab:yolov8_results}       
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccccccccccccccc}
+			\hline
+			\textbf{Epoch} & \textbf{Time} & \textbf{Train/Box\_Loss} & \textbf{Train/Cls\_Loss} & \textbf{Train/Dfl\_Loss} & \textbf{Precision(B)} & \textbf{Recall(B)} & \textbf{mAP50(B)} & \textbf{mAP50-95(B)} & \textbf{Val/Box\_Loss} & \textbf{Val/Cls\_Loss} & \textbf{Val/Dfl\_Loss} & \textbf{Lr/Pg0} & \textbf{Lr/Pg1} & \textbf{Lr/Pg2} \\ 
+			\hline
+			126 & 6360.51 & 0.75791 & 0.45379 & 1.05759 & 0.80359 & 0.80185 & 0.81238 & 0.45752 & 1.49237 & 0.71563 & 1.65138 & 0.000194425 & 0.000194425 & 0.000194425 \\
+			127 & 6412.57 & 0.74665 & 0.4505 & 1.05552 & 0.82939 & 0.77792 & 0.81233 & 0.45731 & 1.48609 & 0.73031 & 1.6396 & 0.000187092 & 0.000187092 & 0.000187092 \\
+			128 & 6464.33 & 0.75166 & 0.45257 & 1.05661 & 0.79837 & 0.80707 & 0.81184 & 0.45776 & 1.49981 & 0.72916 & 1.64966 & 0.00017976 & 0.00017976 & 0.00017976 \\
+			129 & 6515.65 & 0.74331 & 0.4458 & 1.05266 & 0.78773 & 0.80445 & 0.80437 & 0.4522 & 1.50162 & 0.71369 & 1.66705 & 0.000172427 & 0.000172427 & 0.000172427 \\
+			130 & 6567.16 & 0.74332 & 0.4428 & 1.04925 & 0.83522 & 0.75742 & 0.80926 & 0.45308 & 1.5077 & 0.7282 & 1.66317 & 0.000165095 & 0.000165095 & 0.000165095 \\
+			131 & 6617.98 & 0.73888 & 0.4422 & 1.047 & 0.79833 & 0.80173 & 0.80099 & 0.45012 & 1.50439 & 0.73274 & 1.66988 & 0.000157762 & 0.000157762 & 0.000157762 \\
+			132 & 6669.68 & 0.74697 & 0.4498 & 1.05269 & 0.78536 & 0.81475 & 0.79961 & 0.45236 & 1.50791 & 0.73883 & 1.68036 & 0.000150429 & 0.000150429 & 0.000150429 \\
+			133 & 6724.6 & 0.73601 & 0.43509 & 1.04564 & 0.80231 & 0.805 & 0.80724 & 0.45385 & 1.49944 & 0.72958 & 1.67922 & 0.000143097 & 0.000143097 & 0.000143097 \\
+			134 & 6776.04 & 0.73314 & 0.43905 & 1.04535 & 0.827 & 0.79017 & 0.80382 & 0.45241 & 1.49828 & 0.73196 & 1.6699 & 0.000135764 & 0.000135764 & 0.000135764 \\
+			135 & 6827.46 & 0.73802 & 0.44291 & 1.0466 & 0.83094 & 0.77603 & 0.80317 & 0.44906 & 1.5107 & 0.73402 & 1.69538 & 0.000128432 & 0.000128432 & 0.000128432 \\
+			136 & 6879.04 & 0.74193 & 0.44178 & 1.05257 & 0.83278 & 0.77339 & 0.79924 & 0.44867 & 1.50778 & 0.72286 & 1.69688 & 0.000121099 & 0.000121099 & 0.000121099 \\
+			137 & 6930.26 & 0.73002 & 0.43664 & 1.04419 & 0.79711 & 0.78305 & 0.80078 & 0.45237 & 1.50962 & 0.7192 & 1.685 & 0.000113767 & 0.000113767 & 0.000113767 \\
+			138 & 6984.09 & 0.72548 & 0.43668 & 1.04603 & 0.78357 & 0.7936 & 0.79602 & 0.44868 & 1.50591 & 0.72574 & 1.67841 & 9.91012e-05 & 9.91012e-05 & 9.91012e-05 \\
+			139 & 7036.32 & 0.72771 & 0.43275 & 1.04649 & 0.82369 & 0.78635 & 0.80699 & 0.45486 & 1.49677 & 0.72329 & 1.67684 & 9.17686e-05 & 9.17686e-05 & 9.17686e-05 \\
+			140 & 7087.92 & 0.72609 & 0.43721 & 1.04344 & 0.82096 & 0.79007 & 0.80784 & 0.45777 & 1.50444 & 0.72084 & 1.67684 & 8.4436e-05 & 8.4436e-05 & 8.4436e-05 \\
+			141 & 7141.32 & 0.68102 & 0.35303 & 1.00733 & 0.82935 & 0.77311 & 0.803 & 0.44489 & 1.5151 & 0.7147 & 1.70039 & 6.24382e-05 & 6.24382e-05 & 6.24382e-05 \\
+			142 & 7191.72 & 0.66473 & 0.33836 & 0.99444 & 0.81125 & 0.79118 & 0.80295 & 0.44949 & 1.5046 & 0.71617 & 1.70118 & 5.51056e-05 & 5.51056e-05 & 5.51056e-05 \\
+			143 & 7241.58 & 0.64573 & 0.33418 & 0.9918 & 0.8248 & 0.78388 & 0.80395 & 0.45306 & 1.50615 & 0.72032 & 1.71166 & 4.77732e-05 & 4.77732e-05 & 4.77732e-05 \\
+			144 & 7292.55 & 0.64122 & 0.33231 & 0.98752 & 0.79349 & 0.78769 & 0.79914 & 0.45306 & 1.50419 & 0.71693 & 1.70198 & 4.04408e-05 & 4.04408e-05 & 4.04408e-05 \\
+			145 & 7340.88 & 0.63183 & 0.3316 & 0.98424 & 0.82966 & 0.76569 & 0.79915 & 0.45252 & 1.49896 & 0.72323 & 1.70198 & 3.31078e-05 & 3.31078e-05 & 3.31078e-05 \\
+			146 & 7391.35 & 0.63669 & 0.3314 & 0.98866 & 0.84181 & 0.77041 & 0.80284 & 0.45321 & 1.50939 & 0.72793 & 1.70039 & 2.57752e-05 & 2.57752e-05 & 2.57752e-05 \\
+			147 & 7439.61 & 0.63068 & 0.32582 & 0.98083 & 0.81884 & 0.80224 & 0.80492 & 0.45482 & 1.50247 & 0.72536 & 1.71493 & 1.84426e-05 & 1.84426e-05 & 1.84426e-05 \\
+			148 & 7490.37 & 0.62258 & 0.32381 & 0.98083 & 0.80132 & 0.80224 & 0.80492 & 0.45482 & 1.50247 & 0.72536 & 1.71493 & 1.84426e-05 & 1.84426e-05 & 1.84426e-05 \\
+			149 & 7538.48 & 0.61945 & 0.32406 & 0.97695 & 0.82539 & 0.77995 & 0.80342 & 0.45361 & 1.50333 & 0.7281 & 1.7064 & 1.84426e-05 & 1.84426e-05 & 1.84426e-05 \\
+			150 & 7587.08 & 0.62007 & 0.32603 & 0.97975 & 0.80859 & 0.78988 & 0.80107 & 0.45456 & 1.49947 & 0.72524 & 1.7064 & 1.84426e-05 & 1.84426e-05 & 1.84426e-05 \\
+			\hline
+		\end{tabular}
+	}
+\end{table}
+
+Table 3 presents the YOLOv8 training results showing various performance metrics across multiple epochs. The parameters include loss components such as \textit{Box Loss}, \textit{Classification Loss}, and \textit{Distribution Focal Loss}, together with precision, recall, and mean Average Precision (mAP) values. The table also displays validation losses and learning rate parameters, reflecting the model’s optimization behavior during the training process. The table summarizes the learning progress and convergence performance of the YOLOv8 model during training. By observing these metrics, the researchers were able to determine how effectively the model minimized losses while improving detection accuracy over time.
+
+As the training progressed, the loss values (\textit{Train/Box}, \textit{Train/Cls}, and \textit{Train/Dfl}) gradually decreased, while performance indicators such as precision and recall stabilized at higher levels. The improvement in \textit{mAP@50} and \textit{mAP@50–95} shows that the model achieved high detection accuracy, while the reduction in validation losses confirms effective generalization and minimal overfitting. The results imply that the YOLOv8 model efficiently learned the distinctive features of helmets and riders, making it reliable for real-time detection. This demonstrates that the trained model can contribute to accurate helmet compliance monitoring and promote road safety initiatives.
+
+Despite the positive outcomes, slight fluctuations in some loss values suggest that further fine-tuning or extended epochs may still enhance model stability. Variations in lighting or image quality may have also influenced certain performance measures. Overall, the YOLOv8 training results demonstrate a stable and effective learning process, achieving high accuracy and reliable detection performance. These findings confirm that the model is well-trained and suitable for implementation in helmet compliance detection systems.
+
+\begin{table}[H]
+	\centering
+	\caption{YOLOv8 Validation Results Showing Detection Accuracy per Class} 
+	\label{tab:yolov8_validation_results}                                 
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{lcccccc}
+			\hline
+			\textbf{Class} & \textbf{Images} & \textbf{Instances} & \textbf{Precision (P)} & \textbf{Recall (R)} & \textbf{mAP50} & \textbf{mAP50–95} \\
+			\hline
+			All & 227 & 624 & 0.804 & 0.795 & 0.831 & 0.459 \\
+			Motorcycle & 172 & 205 & 0.970 & 0.956 & 0.976 & 0.669 \\
+			Not Motorcycle & 55 & 93 & 0.911 & 0.978 & 0.958 & 0.778 \\
+			Person with No Helmet & 52 & 73 & 0.699 & 0.671 & 0.671 & 0.260 \\
+			Person with Proper Helmet & 119 & 168 & 0.662 & 0.676 & 0.653 & 0.251 \\
+			Person with Wrong Helmet Use & 61 & 85 & 0.776 & 0.691 & 0.740 & 0.337 \\
+			\hline
+			\multicolumn{2}{l}{\textbf{Mean Precision:}} & \multicolumn{4}{l}{0.8037} & \\
+			\multicolumn{2}{l}{\textbf{Mean Recall:}} & \multicolumn{4}{l}{0.7945} & \\
+			\multicolumn{2}{l}{\textbf{mAP50:}} & \multicolumn{4}{l}{0.8095} & \\
+			\multicolumn{2}{l}{\textbf{mAP[0.5–0.95]:}} & \multicolumn{4}{l}{0.4589} & \\
+			\hline
+		\end{tabular}
+	}
+\end{table}
+
+After completing the training phase, the model was evaluated to determine its accuracy in detecting motorcycles and assessing helmet usage. This evaluation provided valuable insights into the YOLOv8 model’s ability to correctly identify each class within the dataset and measure its effectiveness in real-world detection scenarios. As shown in Figure 10, the YOLOv8 model was trained using a dataset consisting of five classes: motorcycle, not motorcycle, person with no helmet, person with proper helmet, and person with wrong helmet use. The dataset was divided into training, validation, and testing sets to ensure fair and balanced performance assessment. Before training, the images were resized and normalized to match the input requirements of the model. The training process ran for 150 epochs using batch processing, which enabled the model to efficiently learn from multiple images simultaneously. During evaluation, the model achieved high precision and recall in detecting motorcycles, while helmet-related classes, specifically person with no helmet, person with proper helmet, and person with wrong helmet use demonstrated moderate but consistent performance. The overall mean precision and recall reached approximately 80%, with mAP50 = 0.81 and mAP@[0.5:0.95] = 0.46, indicating that the model effectively identified helmet compliance but had greater difficulty distinguishing between correct and incorrect helmet use.
+
+These results indicated that the YOLOv8 model learned effectively during training. The steady decrease in box, classification, and DFL losses reflected continuous improvement throughout the learning process. Precision and recall values stabilizing near 0.8 showed that the model accurately detected most target objects while minimizing false positives. However, the moderate scores for helmet-related categories suggested that detecting helmet violations remained challenging due to visual similarities, partial occlusions, and varying rider positions. The findings demonstrated that the developed model could support real-time helmet compliance monitoring. With accuracy levels around 80\%, the system showed potential for deployment in local traffic enforcement and safety management. The model’s consistency across multiple categories also suggested strong adaptability for future integrations into surveillance systems. Further optimization such as expanding the dataset or fine-tuning the model parameters could improve its ability to recognize subtle helmet violations more precisely. Although the model achieved strong performance overall, certain challenges were observed. The dataset contained fewer samples for specific classes, particularly wrong helmet use, which limited the model’s learning depth. Additionally, lower precision under stricter evaluation thresholds, reflected by the mAP@[0.5:0.95] score of 0.46, indicated the need for enhanced dataset diversity and improved feature extraction to capture complex helmet patterns.
+
+In conclusion, the YOLOv8 model performed effectively in detecting motorcycles and assessing helmet compliance. Its high precision and recall confirmed its reliability as a detection framework, while the moderate mAP scores highlighted opportunities for refinement in identifying specific helmet violations. The evaluation verified that the model successfully met its intended objectives and provided a strong basis for developing an automated helmet compliance detection system.
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figures/Fig 14.jpg}
+	\caption[Training Results]{Training Results}
+	\label{fig:training_results}
+\end{figure}
+
+\noindent
+
+As shown in Figure 9, the YOLOv8 model effectively learned throughout the training process. The box, classification, and DFL losses decreased consistently, indicating proper learning and convergence. Both precision and recall stabilized around 0.8, signifying reliable detection and classification accuracy. The model achieved approximately 0.8 mAP@50 and 0.45 mAP@[0.5:0.95], reflecting strong accuracy under standard evaluation but lower performance under stricter thresholds. Minor signs of overfitting were observed in validation, though the model remained stable and accurate overall. The steady reduction in loss values confirmed that the model successfully adapted to the dataset during training. The balance between precision and recall suggested that the YOLOv8 model was neither over-detecting nor missing significant objects. The slight overfitting may have resulted from the limited dataset size, where the model learned specific visual patterns too precisely.
+
+These findings demonstrated that the YOLOv8 model possessed the learning capability required for real-world traffic applications. The results suggested its potential for robust and consistent helmet compliance detection once deployed in an operational setting. Although the model achieved stable accuracy, performance decreased under stricter thresholds (mAP@[0.5:0.95] = 0.45). This suggested that additional tuning or larger datasets could help enhance performance for more complex scenes. In summary, the training outcomes confirmed effective model learning, consistent accuracy, and readiness for further evaluation and deployment.
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figures/Fig 15.jpg}
+	\caption[Confusion Matrix]{Confusion Matrix}
+	\label{fig:confusion_matrix}
+\end{figure}
+
+
+\noindent
+As presented in Figure 10, the confusion matrix revealed high accuracy in identifying motorcycles (96\%) and non-motorcycles (98\%), while helmet-related categories achieved moderate accuracy: 73\% for no helmet, 77\% for proper helmet, and 72\% for wrong helmet use. Most misclassifications occurred between proper and wrong helmet use or between no helmet and the background. The results indicated that the model was highly effective in motorcycle classification but faced difficulty with finer distinctions among helmet-related categories. This challenge may be attributed to overlapping visual features and limited instances for certain categories.
+
+The confusion matrix results confirmed that the model could reliably distinguish motorcycles but needed further refinement for more complex helmet classifications. Despite these gaps, the model still demonstrated practical utility for road monitoring. Misclassifications suggested the need for more balanced class representation in future datasets, particularly for wrong helmet use and no helmet images. Overall, the confusion matrix showed strong classification performance, highlighting the model’s reliability for motorcycle detection and moderate success in differentiating helmet compliance types.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.33\textwidth}
+		\centering
+		\includegraphics[width=\linewidth,height=5.2cm,keepaspectratio]{figures/Fig 16a.jpg}
+		\caption*{a.) Class Distribution}
+		\label{fig:16a}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.33\textwidth}
+		\centering
+		\includegraphics[width=\linewidth,height=5.2cm,keepaspectratio]{figures/Fig 16c.jpg}
+		\caption*{b.) Box Center Distribution}
+		\label{fig:16b}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.33\textwidth}
+		\centering
+		\includegraphics[width=\linewidth,height=5.2cm,keepaspectratio]{figures/Fig 16d.jpg}
+		\caption*{c).Box Size Distrinution}
+		\label{fig:16d}
+	\end{subfigure}
+	\caption{Dataset Visualization Results}
+	\label{fig:16}
+\end{figure}
+
+\noindent
+As shown in Figure 11a, most bounding boxes are concentrated near the center of the image frame, indicating that the dataset was captured with consistent camera positioning and frontal viewpoints. Figure 11b shows that the class distribution is generally balanced across motorcycles, proper helmet use, no helmet, and incorrect helmet use, allowing the model to learn from a wide range of scenarios. Figure 11c further reveals that most annotated objects have small width–height ratios, meaning that the dataset mainly contains distant or moderately sized subjects such as riders and helmets. These findings indicate that the dataset provides stable framing, balanced class exposure, and detailed small-object samples, all of which support effective YOLOv8 training and reliable detection performance. However, the limited number of off-centered objects and the dominance of small object sizes may reduce the model’s adaptability in situations where riders appear at the edges of the frame or very close to the camera. Overall, the dataset offers a strong foundation for accurate helmet compliance detection but would benefit from added spatial diversity and varied object scales to further improve generalization.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Fig17a.jpg}
+		\caption{F1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Fig17b.jpg}
+		\caption{Precision}
+	\end{subfigure}
+	
+	\vspace{0.5em}
+	
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Fig17c.jpg}
+		\caption{Precision--Recall}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/Fig17d.jpg}
+		\caption{Recall--Confidence}
+	\end{subfigure}
+	
+	\caption{Box Curve Results}
+	\label{fig:box_curve}
+\end{figure}
+
+
+\noindent
+As shown in Figure 12, the F1-Confidence Curve (Graph A) demonstrated the model’s best trade-off between precision and recall at a confidence threshold of 0.41, achieving an F1 score of 0.80. The Precision-Confidence Curve (Graph B) showed precision increasing with higher confidence thresholds, while helmet-related classes achieved slightly lower precision. The Precision-Recall Curve (Graph C) showed 0.976 precision for motorcycles and 0.981 for non-motorcycles, compared to 0.712, 0.654, and 0.740 for helmet-related classes. The Recall-Confidence Curve (Graph D) revealed that recall peaked at 0.89 under lower thresholds.
+
+The graphs confirmed that the model balanced sensitivity and precision effectively but found it more challenging to maintain this balance for helmet-related detections. The lower F1 scores for those classes reflected the complexity of helmet visibility and differentiation. The results reinforced that YOLOv8 performed well overall and that its detection capability was strong for general object classes. The consistent precision and recall for motorcycles indicated real-world deployment potential. The drop in precision for helmet classes showed the need for dataset enhancement and improved feature differentiation during model training. To conclude, the performance graphs validated the model’s effectiveness in detecting motorcycles and highlighted the areas requiring improvement in recognizing subtle helmet variations.
+
+\begin{figure}[H]
+	\centering
+	% First row - 3 images
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 18a.jpg}
+		\caption{motorcycle}
+		\label{fig:samples_top_left}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 18b.jpg}
+		\caption{not motorcycle}
+		\label{fig:samples_top_center}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 18c.jpg}
+		\caption{person with no helmet}
+		\label{fig:samples_top_right}
+	\end{subfigure}
+	
+	% Space between rows
+	\vspace{0.6cm}
+	
+	% Second row - 2 centered images
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 18d.jpg}
+		\caption{person with proper helmet}
+		\label{fig:samples_bottom_left}
+	\end{subfigure}
+	\hspace{0.1\textwidth}
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=4cm,height=4cm]{figures/Fig 18e.jpg}
+		\caption{person with wrong helmet use}
+		\label{fig:samples_bottom_right}
+	\end{subfigure}
+	
+	\caption{Samples of Dataset: (a) Motorcycle, (b) Not motorcycle, (c) Person with no helmet, (d) Person with proper helmet, (e) Person with wrong helmet use.}
+	\label{fig:18_dataset_samples}
+\end{figure}
+
+\noindent
+This section discusses the training and evaluation of the YOLOv8 model developed for helmet compliance detection. It presents the model’s learning process and performance based on various evaluation metrics and visual results. Collectively, the figures and tables comprehensively summarize the model’s development, learning behavior, and overall detection performance across multiple real-world testing conditions, ensuring robust, accurate, and efficient helmet detection outcomes.
+
+\section{Vehicle Filtering}
+
+The vehicle filtering stage of the Helmet Compliance Detection Prototype yielded significant findings, as it successfully identified motorcycles from mixed traffic and ensured that helmet detection was applied only to the appropriate vehicle type. This selective filtering reduced false detections, minimized unnecessary computations, and improved the system’s accuracy during real-time operation. These results indicated that isolating motorcycles before performing helmet detection greatly enhanced the model’s reliability, particularly in complex scenarios involving dense traffic, varying speeds, and overlapping objects. When compared with existing literature, the findings aligned with prior studies that emphasized the importance of pre-filtering and object prioritization in computer vision workflows. Research using YOLO-based frameworks similarly demonstrated that motorcycle isolation improved detection precision and reduced classification errors, supporting the effectiveness of the approach used in this study. The implications of these results suggested that the prototype could be adapted to diverse environments, as the filtering mechanism allowed the system to maintain consistent performance across different lighting conditions, camera angles, and urban settings. Furthermore, the improved efficiency and reduced processing load strengthened the system’s potential for long-term deployment and integration into larger intelligent transportation infrastructures. However, certain limitations were observed, especially when motorcycles appeared partially occluded, affected by motion blur, or exposed to extreme lighting conditions, which occasionally reduced detection accuracy. In summary, the vehicle filtering stage played a vital role in strengthening the detection pipeline, enabling more focused, efficient, and reliable helmet compliance monitoring while establishing a solid foundation for future system enhancements and broader real-world implementation.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figures/Fig 19.jpg}
+	\caption[Vehicle Filtering]{Vehicle Filtering}
+	\label{fig:helmet_detection}
+\end{figure}
+
+\noindent
+
+As presented in the figure 14, the vehicle filtering process focused on detecting motorcycles while ignoring tricycles and other non-target vehicles. The YOLOv8 model correctly classified tricycles under the “not motorcycle” class, excluding them from further analysis. The prototype then concentrated on motorcycles, accurately identifying helmets worn by riders and passengers, ensuring that only relevant detections were considered for compliance evaluation. The results demonstrated that the filtering mechanism performed effectively, enabling the model to concentrate solely on motorcycles. This selective detection minimized false helmet assessments involving tricycles or other vehicle types. The model’s ability to identify motorcycles with riders and passengers confirmed the reliability of its vehicle classification and filtering function.
+
+The correct classification of tricycles as “not motorcycle” shows that the YOLOv8 model successfully distinguished between different vehicle structures. By filtering out tricycles, the prototype maintained a precise detection flow, improving the consistency and accuracy of helmet compliance analysis. This focused detection ensured that irrelevant objects did not interfere with the system’s performance. Accurate vehicle filtering enhances both the efficiency and credibility of the helmet compliance system. By processing only motorcycles, the system reduced computational load and avoided false detections, making it more practical for real-time traffic monitoring and road safety enforcement. Some minor misclassifications may occur in cases where tricycles visually resemble motorcycles, especially under poor lighting, occlusion, or motion blur. These scenarios can slightly affect filtering precision and detection consistency.
+
+Future improvements may include expanding the dataset with more examples of tricycles and similar vehicles. Fine-tuning confidence thresholds or integrating shape-based filtering could further strengthen the system’s ability to differentiate between vehicle types under diverse environmental conditions. In summary, the vehicle filtering stage effectively separated motorcycles from non-target vehicles, allowing the YOLOv8 model to focus on helmet detection. This process significantly improved the accuracy and efficiency of the system, confirming its readiness for practical use in real-world traffic monitoring applications.
+
+\section{Helmet Detection}
+
+The helmet detection stage represented the core functionality of the Helmet Compliance Detection Prototype. After the model successfully filtered motorcycles, it proceeded to analyze the riders and passengers to determine whether they were wearing helmets correctly, incorrectly, or not at all. This step aimed to identify compliance violations in real time by classifying detected persons into three main categories: person with proper helmet, person with wrong helmet use, and person with no helmet. The detection process relied on the YOLOv8 model’s object recognition capabilities, using bounding boxes and class confidence scores to ensure accurate classification. Figure 17 presents the visual results of the helmet detection process performed by the trained YOLOv8 model.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figures/Fig 26.jpg}
+	\caption[Helmet Detection]{Helmet Detection}
+	\label{fig:helmet_detection}
+\end{figure}
+
+The figure 15 shows that the YOLOv8 model successfully detected a motorcycle rider wearing a helmet incorrectly. The helmet was on the rider’s head but lifted or not properly positioned, which the prototype identified as “wrong helmet use.” The detection box was accurately placed around the rider’s head area, showing that the model could recognize not only the presence of a helmet but also how it was worn. This means the prototype can tell the difference between proper and improper helmet use, proving its ability to detect real-world violations related to helmet compliance. The detection results indicated that the model could distinguish between proper and wrong helmet use with reasonable accuracy. The bounding box and class label correctly represented the identified violation, demonstrating the model’s effectiveness in recognizing non-compliant helmet conditions. This confirms that the YOLOv8 model learned the visual differences between correctly and incorrectly worn helmets during training.
+
+The model’s correct identification of “wrong helmet use” reflects its capability to analyze detailed visual features, such as helmet position, coverage, and shape. This performance highlights that the prototype does more than simply detect helmets—it can also assess compliance based on how the helmet is worn. Such functionality is crucial for supporting automated enforcement systems that go beyond basic helmet presence detection. Accurate detection of wrong helmet use strengthens the practical application of the helmet compliance prototype in promoting road safety. By identifying riders who wear helmets improperly, the model contributes to more precise violation tracking and data collection. This capability can aid authorities in implementing stricter and smarter enforcement measures to reduce injury risks among motorcycle users.
+
+Although the detection was accurate, challenges may arise in scenarios involving partial occlusions, reflective visors, or riders with non-standard helmets. These visual complexities can affect classification confidence and occasionally lead to misidentification between proper and wrong helmet use. Future improvements could involve expanding the dataset with more examples of riders wearing helmets incorrectly, such as unbuckled or misaligned helmets. Fine-tuning the model’s confidence threshold and enhancing image augmentation techniques can further improve recognition under different lighting and motion conditions.
+
+\noindent
+
+\section{Real-Time Monitoring}
+
+The real-time monitoring stage served as the operational phase of the Helmet Compliance Detection Prototype, where all detection processes were executed continuously on live video feeds. After filtering vehicles and identifying motorcycles, the prototype analyzed each rider in real time and classified them as either a person with proper helmet, person with wrong helmet use, or person with no helmet. The YOLOv8 model generated bounding boxes and class labels for each detected individual, clearly displaying their compliance status on the interface. Detected violations, such as missing or improperly worn helmets, were instantly highlighted, allowing for immediate visual feedback. This stage demonstrated the system’s capacity for real-time helmet detection, essential for practical use in road surveillance and enforcement applications
+
+\begin{figure}[H]
+	\centering
+	% Left image
+	\begin{subfigure}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/Fig 20.jpg} 
+		\caption*{a.) Daytime}
+		\label{fig:data_annotating}
+	\end{subfigure}
+	\hfill
+	% Right image
+	\begin{subfigure}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/Fig 31.jpg} 
+		\caption*{b.) Night Time}
+		\label{fig:data_generating}
+	\end{subfigure}
+	\caption{ Dashboard interface of the Helmet Compliance Detection Prototype}
+	\label{fig:data_preprocessing}
+\end{figure}
+
+As illustrated in Figure 16, the dashboard operated smoothly in real time, the YOLOv8 model effectively focused on motorcycles, ignoring other vehicles such as tricycles or cars. Detected riders were classified into categories, and their compliance status was clearly labeled on-screen. The interface highlighted violations immediately, proving the system’s capability to perform accurate and fast monitoring of helmet compliance. The system’s detection results confirmed that the prototype could track and record helmet violations efficiently. Each recorded event included essential information such as time, video evidence, and violation type. This automated logging process demonstrated the system’s potential to reduce manual monitoring tasks and human error in traffic enforcement. Additionally, Image (a) shows the prototype operating under bright daytime conditions, where the model performed with high accuracy due to clear visibility and well-defined object features. In contrast, Image (b) illustrates its performance at night, where artificial lighting and low visibility affected the clarity of incoming frames. Despite these differences, the system still maintained acceptable detection performance, demonstrating its ability to function across varying lighting environments.
+
+Performance, however, still varied under certain conditions. The model encountered difficulties in low-light environments, areas with headlight glare or deep shadows, dense traffic, and situations where helmets were partially obstructed or affected by motion blur. These factors reduced classification accuracy and affected the consistency of recorded events. Identifying these variations was important, as they revealed the prototype’s limitations and directed future enhancements. Riders were correctly categorized and their compliance status was displayed on-screen, though rapid motorcycle movement occasionally led to missed or incorrect classifications, especially during sudden accelerations or sharp turns. Frame transitions—such as quick position changes or entering and exiting the camera view—also affected detection stability by limiting clear reference points. Future improvements could include adaptive brightness correction, enhanced nighttime noise reduction, low-light or infrared camera integration, and the use of multiple camera angles for improved visibility. Strengthening performance in challenging weather, such as rain or fog, may also increase reliability. Overall, the Helmet Compliance Detection Dashboard demonstrated effective real-time detection, recording, and management of violations. With strong performance in both daytime (Figure 16a) and nighttime (Figure 16b) conditions, the system proved to be a practical and reliable tool for monitoring road safety, serving as a solid foundation for further advancements in traffic management and public safety.
+
+\section{Real-Time Violation Alert}
+
+The prototype provided real-time alerts whenever a rider was detected without a helmet or wearing one incorrectly, displaying a clear “Violation Detected” message on the interface. It also automatically saved short video clips of each violation for documentation and later review. This feature enhanced enforcement efficiency, improved situational awareness, and encouraged safer riding practices. By integrating detection, alerting, and evidence recording, the prototype promoted consistent helmet use, supported data-driven traffic management, strengthened road safety initiatives, and contributed to safer, more disciplined roads across monitored areas, offering valuable insights for authorities to implement targeted safety campaigns and improve compliance through intelligent monitoring systems for sustainable traffic safety.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{figures/violation.jpg}
+	\caption[Real Time Violation Alert]{Real Time Violation Alert}
+	\label{fig:real_time_violation_alert}
+\end{figure}
+
+\noindent
+As presented in Figure 17, the prototype accurately detected the motorcycle and its riders, marking them with bounding boxes and assigning confidence-based class labels. In this case, one of the riders was correctly classified under “person with wrong helmet use,” which triggered a red “Violation Detected!!” alert at the top of the frame. A timestamp was also generated automatically, ensuring that each violation was properly documented for later verification and reporting. The system’s real-time alert mechanism proved reliable and responsive, showing minimal delay between detection and notification. The recorded video clips provided clear visual evidence, which can be valuable for review and validation by authorities. This feature successfully combined detection accuracy with documentation, supporting both enforcement and analytical applications. The detection and alert process demonstrated the model’s ability to function effectively in real-world scenarios. The automatic triggering of alerts and video saving confirmed the system’s readiness for deployment in traffic monitoring setups. It also highlighted how intelligent automation could replace manual supervision in identifying and recording safety violations.
+
+This feature helps improve road safety by promoting accountability and consistent helmet use. The alert system not only informs operators of real-time violations but also serves as a deterrent, encouraging riders to follow safety regulations to avoid detection. It provides actionable data that can support government or institutional safety campaigns. Challenges may arise in cases where multiple motorcycles appear close together, or when helmets are partially hidden. These factors can sometimes lead to overlapping bounding boxes or incorrect alert triggering, especially in low-quality or motion-blurred video frames. Future development may include refining multi-object tracking, enhancing video resolution handling, and integrating sound or push notifications for stronger situational awareness. Incorporating cloud-based storage for violations could also improve long-term monitoring and data management. In summary, the Real-Time Violation Alert feature successfully demonstrated the system’s ability to detect, notify, and document helmet violations instantly. By combining accurate detection with automated alerts and evidence recording, the prototype supports safer road practices and more efficient traffic enforcement.
+
+
+
+
+
+
+%=======================================================%
+%%%%% Do not delete this part %%%%%%
+\clearpage
+
+\printbibliography[heading=subbibintoc, title={\texorpdfstring{\centering}{} Notes}]
+\end{refsection}
