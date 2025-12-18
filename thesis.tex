@@ -1,0 +1,56 @@
+\documentclass[12pt]{cspcccsthesis}
+% preamble
+
+\title{HELMET COMPLIANCE DETECTION USING COMPUTER VISION FOR SAFER ROADS}
+\authorOne{Dela Justa, Aina Mae F.}
+\authorTwo{Epres, Caren Joy L.}
+\authorThree{Matubis, Maria Angela N.}
+\degree{Bachelor of Science in Computer Science}
+\approvaldate{December 5, 2025}
+\school{College of Computer Studies}
+\adviser{KAELA MARIE FORTUNO, MIT}
+\dean{ROSEL O. ONESA, MIT}
+\committeeMemberOne{TIFFANY LYN O. PANDES, MS\lowercase{c}}
+\committeeMemberTwo{ROSEL O. ONESA, MIT}
+\committeeChair{IAN P. BENITEZ, DIT}
+\department{}
+\thesisAbstract{This study developed an automated Helmet Compliance Detection system using Computer Vision and YOLOv8 to address increasing motorcycle-related violations. A total of 1,242 images were collected, annotated, and used to train the model for 150 epochs, resulting in an accuracy of 83.3\%. The system effectively detected motorcycles, proper and improper helmet use, and overloading, and it generated automatic video evidence of violations. Field deployment along Nabua Highway showed reliable performance under varying lighting conditions. The results demonstrate that the prototype is a practical solution for real-time helmet compliance monitoring.}
+\keywords{Helmet Detection; Computer Vision; YOLOv8; Deep Learning; Road Safety;}
+
+% Load glossary entries
+\input{settings/glossary.tex}
+
+% document body
+\begin{document}
+
+\makeTitlePage{May}{2025}
+
+\begin{frontmatter}
+    \input{approvalPage}
+    \makePanelofExaminers{90}
+    \makeDedication{
+    	This project is wholeheartedly dedicated to our parents, who have unwaveringly provided us with financial and moral support. Thank you for meeting all our needs throughout the development of our prototype and for teaching us that even the biggest tasks can be achieved when done one step at a time.
+    	
+    	We also extend this dedication to our friends and classmates who generously shared their ideas, answered our questions, and supported us whenever guidance was needed. Your insights, encouragement, and patience have played a significant role in our progress, and we are truly grateful for your presence throughout this journey.
+    	
+    	Lastly, we dedicate this study to future researchers who may build upon this work. May it serve as a guide and inspiration as you pursue your own innovations.
+    }
+    \input{acknowledgments}
+    \makeAbstract
+    \makeTOC
+    \makeListOfTables
+    \makeListOfFigures
+\end{frontmatter}
+
+\begin{thesisbody}
+    \input{chapters/chapter1}
+    \input{chapters/chapter2}
+    \input{chapters/chapter3}
+    \input{chapters/chapter4}
+    \input{chapters/chapter5}
+    \makeBibliography
+    \input{chapters/appendix}
+    \input{vita}
+\end{thesisbody}
+
+\end{document}

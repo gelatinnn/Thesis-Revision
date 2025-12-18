@@ -1,0 +1,87 @@
+[0] Config.pm:328> INFO - This is Biber 2.21
+[1] Config.pm:331> INFO - Logfile is 'thesis.blg'
+[309] biber-MSWIN64:342> INFO - === 
+[392] Biber.pm:421> INFO - Reading 'thesis.bcf'
+[765] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
+[767] Biber.pm:1002> INFO - Found 23 citekeys in bib section 1
+[767] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
+[805] Biber.pm:1002> INFO - Found 29 citekeys in bib section 2
+[805] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
+[806] Biber.pm:1002> INFO - Found 4 citekeys in bib section 3
+[806] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
+[806] Biber.pm:1002> INFO - Found 0 citekeys in bib section 4
+[806] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
+[806] Biber.pm:1002> INFO - Found 0 citekeys in bib section 5
+[807] Biber.pm:999> INFO - Using all citekeys in bib section 0
+[895] Biber.pm:4487> INFO - Processing section 0
+[927] Biber.pm:4678> INFO - Looking for bibtex file 'references.bib' for section 0
+[1113] bibtex.pm:1713> INFO - LaTeX decoding ...
+[1308] bibtex.pm:1519> INFO - Found BibTeX data source 'references.bib'
+[2460] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[2460] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[2461] Biber.pm:4307> INFO - Sorting list 'anyt/global//global/global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[2461] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
+[2689] Biber.pm:4487> INFO - Processing section 1
+[2690] Biber.pm:4678> INFO - Looking for bibtex file 'references.bib' for section 1
+[3366] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[3367] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[3367] Biber.pm:4307> INFO - Sorting list 'anyt/global//global/global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[3367] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
+[3443] Biber.pm:4487> INFO - Processing section 2
+[3444] Biber.pm:4678> INFO - Looking for bibtex file 'references.bib' for section 2
+[4204] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[4204] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[4204] Biber.pm:4307> INFO - Sorting list 'anyt/global//global/global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[4205] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
+[4333] Biber.pm:4487> INFO - Processing section 3
+[4333] Biber.pm:4678> INFO - Looking for bibtex file 'references.bib' for section 3
+[4511] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[4511] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[4511] Biber.pm:4307> INFO - Sorting list 'anyt/global//global/global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[4511] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
+[4525] bbl.pm:676> INFO - Writing 'thesis.bbl' with encoding 'UTF-8'
+[4764] bbl.pm:779> INFO - Output to thesis.bbl
+[4765] Biber.pm:132> WARN - Duplicate entry key: 'satheesh2024automated' in file 'references.bib', skipping ...
+[4765] Biber.pm:132> WARN - legacy month field 'April' in entry 'Varghese2024' is not an integer - this will probably not sort properly.
+[4765] Biber.pm:132> WARN - legacy year field 'n.d.' in entry 'BritannicaLaw' is not an integer - this will probably not sort properly.
+[4766] Biber.pm:132> WARN - legacy month field 'December' in entry 'Kumar2023' is not an integer - this will probably not sort properly.
+[4766] Biber.pm:132> WARN - legacy year field 'n.d.' in entry 'BritannicaTraffic' is not an integer - this will probably not sort properly.
+[4766] Biber.pm:132> WARN - legacy month field 'November' in entry 'Terven2023' is not an integer - this will probably not sort properly.
+[4766] Biber.pm:132> WARN - legacy month field 'December' in entry 'Muhammad2024' is not an integer - this will probably not sort properly.
+[4766] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 4, warning: 2 characters of junk seen at toplevel
+[4766] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 12, warning: 2 characters of junk seen at toplevel
+[4766] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 20, warning: 2 characters of junk seen at toplevel
+[4766] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 32, warning: 2 characters of junk seen at toplevel
+[4767] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 43, warning: 2 characters of junk seen at toplevel
+[4767] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 51, warning: 2 characters of junk seen at toplevel
+[4767] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 59, warning: 2 characters of junk seen at toplevel
+[4767] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 67, warning: 2 characters of junk seen at toplevel
+[4768] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 75, warning: 2 characters of junk seen at toplevel
+[4768] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 84, warning: 3 characters of junk seen at toplevel
+[4768] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 93, warning: 3 characters of junk seen at toplevel
+[4768] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 102, warning: 3 characters of junk seen at toplevel
+[4769] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 111, warning: 3 characters of junk seen at toplevel
+[4769] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 122, warning: 3 characters of junk seen at toplevel
+[4769] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 133, warning: 3 characters of junk seen at toplevel
+[4769] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 142, warning: 3 characters of junk seen at toplevel
+[4770] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 153, warning: 3 characters of junk seen at toplevel
+[4770] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 161, warning: 3 characters of junk seen at toplevel
+[4770] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 168, warning: 3 characters of junk seen at toplevel
+[4770] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 175, warning: 3 characters of junk seen at toplevel
+[4770] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 182, warning: 3 characters of junk seen at toplevel
+[4770] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 190, warning: 3 characters of junk seen at toplevel
+[4771] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 199, warning: 3 characters of junk seen at toplevel
+[4771] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 488, warning: 2 characters of junk seen at toplevel
+[4771] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 499, warning: 2 characters of junk seen at toplevel
+[4771] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 509, warning: 2 characters of junk seen at toplevel
+[4771] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 535, warning: 1 characters of junk seen at toplevel
+[4771] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 544, warning: 1 characters of junk seen at toplevel
+[4772] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 554, warning: 1 characters of junk seen at toplevel
+[4772] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\admin\AppData\Local\Temp\biber_tmp_n2Q5\33e59b5ca9ec342068223d604c3f8d55_8768.utf8, line 566, warning: 1 characters of junk seen at toplevel
+[4772] Biber.pm:132> WARN - legacy month field 'December' in entry 'Kumar2023' is not an integer - this will probably not sort properly.
+[4772] Biber.pm:132> WARN - legacy year field 'n.d.' in entry 'BritannicaLaw' is not an integer - this will probably not sort properly.
+[4772] Biber.pm:132> WARN - legacy year field 'n.d.' in entry 'BritannicaTraffic' is not an integer - this will probably not sort properly.
+[4773] Biber.pm:132> WARN - legacy month field 'April' in entry 'Varghese2024' is not an integer - this will probably not sort properly.
+[4773] Biber.pm:132> WARN - legacy month field 'December' in entry 'Muhammad2024' is not an integer - this will probably not sort properly.
+[4773] Biber.pm:132> WARN - legacy month field 'November' in entry 'Terven2023' is not an integer - this will probably not sort properly.
+[4773] Biber.pm:134> INFO - WARNINGS: 43

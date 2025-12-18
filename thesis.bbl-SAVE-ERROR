@@ -1,0 +1,500 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{allen2019fast}{article}{}
+      \name{author}{2}{}{%
+        {{hash=8e5b5d74854fc113c2f65b59eca761b1}{%
+           family={Allen},
+           familyi={A\bibinitperiod},
+           given={Barry},
+           giveni={B\bibinitperiod}}}%
+        {{hash=f59da93d20095f3ca430ce569c650ecc}{%
+           family={West},
+           familyi={W\bibinitperiod},
+           given={Wally},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {eng}%
+      }
+      \list{publisher}{1}{%
+        {Star City Publications}%
+      }
+      \strng{namehash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{fullhash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{bibnamehash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{authorbibnamehash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{authornamehash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{authorfullhash}{d40c8b4046075d4703ad9604d033f139}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0003-6951}
+      \field{journaltitle}{Journal of Ultrafast Physics}
+      \field{number}{1}
+      \field{title}{Attosecond-length perception of events toward truly sustainable energy}
+      \field{volume}{42}
+      \field{year}{2019}
+      \true{nocite}
+      \field{pages}{43\bibrangedash 45}
+      \range{pages}{3}
+    \endentry
+    \entry{noauthor_biblatex_nodate}{online}{}
+      \field{sortinit}{b}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{TeX - LaTeX Stack Exchange}
+      \field{title}{biblatex - {How} to use biber}
+      \field{urlday}{16}
+      \field{urlmonth}{2}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://tex.stackexchange.com/questions/26516/how-to-use-biber
+      \endverb
+      \verb{url}
+      \verb https://tex.stackexchange.com/questions/26516/how-to-use-biber
+      \endverb
+    \endentry
+    \entry{onate_exploring_2021}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b1ac21e1e6426d9a8454a59f8b89a167}{%
+           family={Oñate},
+           familyi={O\bibinitperiod},
+           given={Joseph\bibnamedelimb Jessie\bibnamedelima S.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=8c1772e580776c883d05bb5839c9f9f8}{%
+           family={Ang-Tolentino},
+           familyi={A\bibinithyphendelim T\bibinitperiod},
+           given={Marianne},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{fullhash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{bibnamehash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{authorbibnamehash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{authornamehash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{authorfullhash}{29ba5d1abe51342b063b02c85e2f2120}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0143-1161, 1366-5901}
+      \field{journaltitle}{International Journal of Remote Sensing}
+      \field{month}{11}
+      \field{title}{Exploring {RAU}-net for semantic segmentation of {Philippines} satellite images in identification of building density}
+      \field{urlday}{16}
+      \field{urlmonth}{2}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{1\bibrangedash 19}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.1080/01431161.2021.1986239
+      \endverb
+      \verb{urlraw}
+      \verb https://www.tandfonline.com/doi/full/10.1080/01431161.2021.1986239
+      \endverb
+      \verb{url}
+      \verb https://www.tandfonline.com/doi/full/10.1080/01431161.2021.1986239
+      \endverb
+    \endentry
+    \entry{scholes2011lessons}{article}{}
+      \name{author}{4}{}{%
+        {{hash=0187cc6fa9f31d14b48e1934ac76e9eb}{%
+           family={Scholes},
+           familyi={S\bibinitperiod},
+           given={Gregory\bibnamedelima D},
+           giveni={G\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=f603bb71db7c868ba9f1ce0e586eff73}{%
+           family={Fleming},
+           familyi={F\bibinitperiod},
+           given={Graham\bibnamedelima R},
+           giveni={G\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=98e7cfb45ed862c89f6f8eed7bc972bd}{%
+           family={Olaya-Castro},
+           familyi={O\bibinithyphendelim C\bibinitperiod},
+           given={Alexandra},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4d07b83e1cca6bb23e7434008994b4b1}{%
+           family={Van\bibnamedelima Grondelle},
+           familyi={V\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Rienk},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{778a3fbf24da99eeec0d904b2c061fec}
+      \strng{fullhash}{a9283941653949724cb744feb8972cf3}
+      \strng{bibnamehash}{a9283941653949724cb744feb8972cf3}
+      \strng{authorbibnamehash}{a9283941653949724cb744feb8972cf3}
+      \strng{authornamehash}{778a3fbf24da99eeec0d904b2c061fec}
+      \strng{authorfullhash}{a9283941653949724cb744feb8972cf3}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature chemistry}
+      \field{note}{\doi{10.1038/nchem.1145}}
+      \field{number}{10}
+      \field{title}{Lessons from nature about solar light harvesting}
+      \field{volume}{3}
+      \field{year}{2011}
+      \true{nocite}
+      \field{pages}{763}
+      \range{pages}{1}
+    \endentry
+    \entry{ssdsdsd_solid_2012}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=b4779e752dbdadbe625008e3709f1da8}{%
+           given={dssdsd},
+           giveni={d\bibinitperiod},
+           prefix={ssdsdsd\bibnamedelima dssdsd},
+           prefixi={s\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+      }
+      \strng{namehash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{fullhash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{bibnamehash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{authorbibnamehash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{authornamehash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{authorfullhash}{b4779e752dbdadbe625008e3709f1da8}
+      \field{sortinit}{s}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Solid {Waste} {Management} and {Flooding} in {Nabua}}
+      \field{type}{phdthesis}
+      \field{year}{2012}
+      \true{nocite}
+    \endentry
+    \entry{CitekeyUnpublished}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=fe2372a3c3cc8b6fab18d66da694b4cb}{%
+           family={Suresh},
+           familyi={S\bibinitperiod},
+           given={Mohinder},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{fe2372a3c3cc8b6fab18d66da694b4cb}
+      \strng{fullhash}{fe2372a3c3cc8b6fab18d66da694b4cb}
+      \strng{bibnamehash}{fe2372a3c3cc8b6fab18d66da694b4cb}
+      \strng{authorbibnamehash}{fe2372a3c3cc8b6fab18d66da694b4cb}
+      \strng{authornamehash}{fe2372a3c3cc8b6fab18d66da694b4cb}
+      \strng{authorfullhash}{fe2372a3c3cc8b6fab18d66da694b4cb}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Evolution: a revised theory}
+      \field{year}{2006}
+      \true{nocite}
+    \endentry
+    \entry{noauthor_techopedia_nodate}{misc}{}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Your go-to source for professional IT insight, from defining complex tech jargon to exploring the latest tech trends.}
+      \field{title}{Techopedia: {Educating} {IT} {Professionals} {To} {Make} {Smarter} {Decisions}}
+      \field{urlday}{24}
+      \field{urlmonth}{1}
+      \field{urlyear}{2023}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.techopedia.com/
+      \endverb
+      \verb{url}
+      \verb https://www.techopedia.com/
+      \endverb
+    \endentry
+    \entry{wannier1987statistical}{book}{}
+      \name{author}{1}{}{%
+        {{hash=705a9e1c92cb07bb517575d0e33c48d2}{%
+           family={Wannier},
+           familyi={W\bibinitperiod},
+           given={G.H.},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Dover Publications}%
+      }
+      \strng{namehash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{fullhash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{bibnamehash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{authorbibnamehash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{authornamehash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{authorfullhash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780486654010}
+      \field{series}{Dover Books on Physics}
+      \field{title}{Statistical Physics}
+      \field{year}{1987}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://books.google.com/books?id=MDYihVaJgDIC
+      \endverb
+      \verb{url}
+      \verb https://books.google.com/books?id=MDYihVaJgDIC
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+
+\refsection{1}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{noauthor_biblatex_nodate}{online}{}
+      \field{sortinit}{b}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{TeX - LaTeX Stack Exchange}
+      \field{title}{biblatex - {How} to use biber}
+      \field{urlday}{16}
+      \field{urlmonth}{2}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://tex.stackexchange.com/questions/26516/how-to-use-biber
+      \endverb
+      \verb{url}
+      \verb https://tex.stackexchange.com/questions/26516/how-to-use-biber
+      \endverb
+    \endentry
+    \entry{onate_exploring_2021}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b1ac21e1e6426d9a8454a59f8b89a167}{%
+           family={Oñate},
+           familyi={O\bibinitperiod},
+           given={Joseph\bibnamedelimb Jessie\bibnamedelima S.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=8c1772e580776c883d05bb5839c9f9f8}{%
+           family={Ang-Tolentino},
+           familyi={A\bibinithyphendelim T\bibinitperiod},
+           given={Marianne},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{fullhash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{bibnamehash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{authorbibnamehash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{authornamehash}{29ba5d1abe51342b063b02c85e2f2120}
+      \strng{authorfullhash}{29ba5d1abe51342b063b02c85e2f2120}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0143-1161, 1366-5901}
+      \field{journaltitle}{International Journal of Remote Sensing}
+      \field{month}{11}
+      \field{title}{Exploring {RAU}-net for semantic segmentation of {Philippines} satellite images in identification of building density}
+      \field{urlday}{16}
+      \field{urlmonth}{2}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 19}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.1080/01431161.2021.1986239
+      \endverb
+      \verb{urlraw}
+      \verb https://www.tandfonline.com/doi/full/10.1080/01431161.2021.1986239
+      \endverb
+      \verb{url}
+      \verb https://www.tandfonline.com/doi/full/10.1080/01431161.2021.1986239
+      \endverb
+    \endentry
+    \entry{scholes2011lessons}{article}{}
+      \name{author}{4}{}{%
+        {{hash=0187cc6fa9f31d14b48e1934ac76e9eb}{%
+           family={Scholes},
+           familyi={S\bibinitperiod},
+           given={Gregory\bibnamedelima D},
+           giveni={G\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=f603bb71db7c868ba9f1ce0e586eff73}{%
+           family={Fleming},
+           familyi={F\bibinitperiod},
+           given={Graham\bibnamedelima R},
+           giveni={G\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=98e7cfb45ed862c89f6f8eed7bc972bd}{%
+           family={Olaya-Castro},
+           familyi={O\bibinithyphendelim C\bibinitperiod},
+           given={Alexandra},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4d07b83e1cca6bb23e7434008994b4b1}{%
+           family={Van\bibnamedelima Grondelle},
+           familyi={V\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Rienk},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{778a3fbf24da99eeec0d904b2c061fec}
+      \strng{fullhash}{a9283941653949724cb744feb8972cf3}
+      \strng{bibnamehash}{a9283941653949724cb744feb8972cf3}
+      \strng{authorbibnamehash}{a9283941653949724cb744feb8972cf3}
+      \strng{authornamehash}{778a3fbf24da99eeec0d904b2c061fec}
+      \strng{authorfullhash}{a9283941653949724cb744feb8972cf3}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature chemistry}
+      \field{note}{\doi{10.1038/nchem.1145}}
+      \field{number}{10}
+      \field{title}{Lessons from nature about solar light harvesting}
+      \field{volume}{3}
+      \field{year}{2011}
+      \field{pages}{763}
+      \range{pages}{1}
+    \endentry
+    \entry{ssdsdsd_solid_2012}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=b4779e752dbdadbe625008e3709f1da8}{%
+           given={dssdsd},
+           giveni={d\bibinitperiod},
+           prefix={ssdsdsd\bibnamedelima dssdsd},
+           prefixi={s\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+      }
+      \strng{namehash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{fullhash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{bibnamehash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{authorbibnamehash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{authornamehash}{b4779e752dbdadbe625008e3709f1da8}
+      \strng{authorfullhash}{b4779e752dbdadbe625008e3709f1da8}
+      \field{sortinit}{s}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Solid {Waste} {Management} and {Flooding} in {Nabua}}
+      \field{type}{phdthesis}
+      \field{year}{2012}
+    \endentry
+    \entry{noauthor_techopedia_nodate}{misc}{}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Your go-to source for professional IT insight, from defining complex tech jargon to exploring the latest tech trends.}
+      \field{title}{Techopedia: {Educating} {IT} {Professionals} {To} {Make} {Smarter} {Decisions}}
+      \field{urlday}{24}
+      \field{urlmonth}{1}
+      \field{urlyear}{2023}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.techopedia.com/
+      \endverb
+      \verb{url}
+      \verb https://www.techopedia.com/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+
+\refsection{2}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{allen2019fast}{article}{}
+      \name{author}{2}{}{%
+        {{hash=8e5b5d74854fc113c2f65b59eca761b1}{%
+           family={Allen},
+           familyi={A\bibinitperiod},
+           given={Barry},
+           giveni={B\bibinitperiod}}}%
+        {{hash=f59da93d20095f3ca430ce569c650ecc}{%
+           family={West},
+           familyi={W\bibinitperiod},
+           given={Wally},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {eng}%
+      }
+      \list{publisher}{1}{%
+        {Star City Publications}%
+      }
+      \strng{namehash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{fullhash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{bibnamehash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{authorbibnamehash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{authornamehash}{d40c8b4046075d4703ad9604d033f139}
+      \strng{authorfullhash}{d40c8b4046075d4703ad9604d033f139}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0003-6951}
+      \field{journaltitle}{Journal of Ultrafast Physics}
+      \field{number}{1}
+      \field{title}{Attosecond-length perception of events toward truly sustainable energy}
+      \field{volume}{42}
+      \field{year}{2019}
+      \field{pages}{43\bibrangedash 45}
+      \range{pages}{3}
+    \endentry
+    \entry{wannier1987statistical}{book}{}
+      \name{author}{1}{}{%
+        {{hash=705a9e1c92cb07bb517575d0e33c48d2}{%
+           family={Wannier},
+           familyi={W\bibinitperiod},
+           given={G.H.},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Dover Publications}%
+      }
+      \strng{namehash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{fullhash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{bibnamehash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{authorbibnamehash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{authornamehash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \strng{authorfullhash}{705a9e1c92cb07bb517575d0e33c48d2}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780486654010}
+      \field{series}{Dover Books on Physics}
+      \field{title}{Statistical Physics}
+      \field{year}{1987}
+      \verb{urlraw}
+      \verb https://books.google.com/books?id=MDYihVaJgDIC
+      \endverb
+      \verb{url}
+      \verb https://books.google.com/books?id=MDYihVaJgDIC
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

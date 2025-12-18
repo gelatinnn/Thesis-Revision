@@ -1,0 +1,38 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1}{\ignorespaces Yolov8 Object Detection Architecture}}{32}{figure.caption.22}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Intersection over Union (IoU)}}{34}{figure.caption.23}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Example of Non-Maximum Suppression }}{35}{figure.caption.24}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Samples of Dataset: Motorcycle, person with no helmet, person with wrong helmet use, person with proper helmet and not motorcycle.}}{39}{figure.caption.26}%
+\contentsline {figure}{\numberline {5}{\ignorespaces \textbf {Prototype of Flowchart}}}{40}{figure.caption.27}%
+\contentsline {figure}{\numberline {6}{\ignorespaces \textbf {Theoretical Framework of the Helmet Compliance Detection }}}{46}{figure.caption.35}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7}{\ignorespaces Examples of Dataset Classes for Helmet Compliance Detection.}}{51}{figure.caption.41}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Data Pre-processing}}{52}{figure.caption.43}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Training Results}}{57}{figure.caption.47}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Confusion Matrix}}{58}{figure.caption.48}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Dataset Visualization Results}}{59}{figure.caption.49}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Box Curve Results}}{60}{figure.caption.50}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Samples of Dataset: (a) Motorcycle, (b) Not motorcycle, (c) Person with no helmet, (d) Person with proper helmet, (e) Person with wrong helmet use.}}{61}{figure.caption.51}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Vehicle Filtering}}{63}{figure.caption.53}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Helmet Detection}}{65}{figure.caption.55}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Dashboard interface of the Helmet Compliance Detection Prototype}}{67}{figure.caption.57}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Real Time Violation Alert}}{69}{figure.caption.59}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

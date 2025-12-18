@@ -1,0 +1,77 @@
+\contentsline {chapter}{Approval Page}{i}{section*.1}%
+\contentsline {chapter}{Panel of Examiners}{ii}{section*.1}%
+\contentsline {chapter}{Dedication}{iii}{section*.1}%
+\contentsline {chapter}{Acknowledgments}{iv}{section*.1}%
+\contentsline {chapter}{Abstract}{vi}{section*.1}%
+\contentsline {chapter}{List of Tables}{ix}{section*.3}%
+\contentsline {chapter}{List of Figures}{x}{section*.5}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{Background of the Problem}{1}{section*.7}%
+\contentsline {section}{Statement of the Problem}{5}{section*.8}%
+\contentsline {section}{Objectives of the Study}{5}{section*.9}%
+\contentsline {subsection}{General Objective}{5}{subsection*.10}%
+\contentsline {subsection}{Specific Objectives}{6}{subsection*.11}%
+\contentsline {section}{Significance of the Study}{6}{section*.12}%
+\contentsline {section}{Scope and Limitation}{7}{section*.13}%
+\contentsline {section}{Project Dictionary}{8}{section*.14}%
+\contentsline {section}{\centering Notes}{12}{section*.14}%
+\contentsline {chapter}{\numberline {2}Related Literature and Studies}{15}{chapter.2}%
+\contentsline {subsection}{Helmet Detection using Computer Vision}{15}{subsection*.15}%
+\contentsline {subsection}{Object Detection Models and Image Processing Techniques}{17}{subsection*.16}%
+\contentsline {subsubsection}{Vehicle Classification}{19}{subsubsection*.17}%
+\contentsline {subsubsection}{Passenger Counting}{20}{subsubsection*.18}%
+\contentsline {subsubsection}{Evaluation Metrics of YOLOv8}{21}{subsubsection*.19}%
+\contentsline {section}{Synthesis of the State-of-the-Art}{22}{section*.20}%
+\contentsline {section}{Gap Bridged of the Study}{24}{section*.21}%
+\contentsline {section}{Notes}{26}{section*.21}%
+\contentsline {chapter}{\numberline {3}Methodology}{30}{chapter.3}%
+\contentsline {subsection}{Data Collection}{41}{subsection*.28}%
+\contentsline {subsection}{Data Preprocessing}{41}{subsection*.29}%
+\contentsline {subsection}{Model Training}{41}{subsection*.30}%
+\contentsline {subsection}{Vehicle Filtering}{41}{subsection*.31}%
+\contentsline {subsection}{Helmet Detection}{41}{subsection*.32}%
+\contentsline {subsection}{Real-time Monitoring}{42}{subsection*.33}%
+\contentsline {subsection}{Real-time Violation Alert}{42}{subsection*.34}%
+\contentsline {subsection}{Computer Vision Theory}{47}{subsection*.36}%
+\contentsline {subsection}{Automated Law Enforcement Theory}{47}{subsection*.37}%
+\contentsline {subsection}{Surveillance Theory}{47}{subsection*.38}%
+\contentsline {subsection}{Real-Time Embedded Systems Theory}{48}{subsection*.39}%
+\contentsline {section}{\centering Notes}{49}{subsection*.39}%
+\contentsline {chapter}{\numberline {4}Results and Discussion}{50}{chapter.4}%
+\contentsline {section}{Data Collection}{50}{section*.40}%
+\contentsline {section}{Data Preprocessing}{52}{section*.42}%
+\contentsline {section}{Model Training}{53}{section*.44}%
+\contentsline {section}{Vehicle Filtering}{62}{section*.52}%
+\contentsline {section}{Helmet Detection}{64}{section*.54}%
+\contentsline {section}{Real-Time Monitoring}{66}{section*.56}%
+\contentsline {section}{Real-Time Violation Alert}{68}{section*.58}%
+\contentsline {chapter}{\numberline {5}Conclusion}{71}{chapter.5}%
+\contentsline {subsubsection}{Summary}{71}{subsubsection*.60}%
+\contentsline {subsubsection}{Findings}{72}{subsubsection*.61}%
+\contentsline {subsubsection}{Conclusions}{73}{subsubsection*.62}%
+\contentsline {subsubsection}{Recommendations}{74}{subsubsection*.63}%
+\contentsline {chapter}{Bibliography}{76}{section*.64}%
+\global \c@tocdepth 1\relax 
+\contentsline {chapter}{Appendices}{80}{section*.66}%
+\renewcommand {\cftsecpresnum }{Appendix }
+\renewcommand {\cftsecnumwidth }{5.75em}
+\renewcommand {\cftsecaftersnum }{:}
+\begingroup \let \l@chapter \l@section \let \l@section \l@subsection 
+\contentsline {chapter}{\numberline {A}Relevant Source Code}{81}{appendix.1.A}%
+\contentsline {chapter}{\numberline {B}Evaluation Tools}{89}{appendix.1.B}%
+\contentsline {chapter}{\numberline {C}Documentations}{90}{appendix.1.C}%
+\contentsline {chapter}{\numberline {D}Joint Affidavit of Undertaking (Plagiarism)}{91}{appendix.1.D}%
+\contentsline {chapter}{\numberline {E}Project Team Assignment Form}{92}{appendix.1.E}%
+\contentsline {chapter}{\numberline {F}Role Acceptance Form }{93}{appendix.1.F}%
+\contentsline {chapter}{\numberline {G}Final Project Title Form}{96}{appendix.1.G}%
+\contentsline {chapter}{\numberline {H}Thesis Project Hearing Form (TD, POD, FOD)}{97}{appendix.1.H}%
+\contentsline {chapter}{\numberline {I}Panel RSC (TD,POD,FOD)}{98}{appendix.1.I}%
+\contentsline {chapter}{\numberline {J} Consultation Logs Form}{99}{appendix.1.J}%
+\contentsline {chapter}{\numberline {K}Language Editing Certification}{109}{appendix.1.K}%
+\contentsline {chapter}{\numberline {L}Secretary's Certification}{110}{appendix.1.L}%
+\contentsline {chapter}{\numberline {M}Grammarian Certificate}{111}{appendix.1.M}%
+\contentsline {chapter}{\numberline {N}Certificate of Transfer}{112}{appendix.1.N}%
+\contentsline {chapter}{\numberline {O}ACM Format}{113}{appendix.1.O}%
+\contentsline {chapter}{\numberline {P}Certificate of Plagiarism Checker}{114}{appendix.1.P}%
+\endgroup 
+\contentsline {chapter}{Vita}{116}{appendix*.82}%
